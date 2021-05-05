@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF_Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF_Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+  <xs:complexType name="ServerClient">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="IPAddress" nillable="true" type="q1:IPEndPoint" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sessions" nillable="true" type="tns:ArrayOfSession" />
+      <xs:element minOccurs="0" name="SessionsInternal" nillable="true" type="tns:ArrayOfSession" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServerClient" nillable="true" type="tns:ServerClient" />
+  <xs:complexType name="ArrayOfSession">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Session" nillable="true" type="tns:Session" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSession" nillable="true" type="tns:ArrayOfSession" />
+  <xs:complexType name="Session">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Clients" nillable="true" type="tns:ArrayOfServerClient" />
+      <xs:element minOccurs="0" name="ClientsInternal" nillable="true" type="tns:ArrayOfServerClient" />
+      <xs:element minOccurs="0" name="Creator" nillable="true" type="tns:ServerClient" />
+      <xs:element minOccurs="0" name="IsPasswordRequired" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SessionName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SessionPassword" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Session" nillable="true" type="tns:Session" />
+  <xs:complexType name="ArrayOfServerClient">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerClient" nillable="true" type="tns:ServerClient" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfServerClient" nillable="true" type="tns:ArrayOfServerClient" />
+  <xs:complexType name="ClientWithSuchNickNameExistsException">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServerException">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClientWithSuchNickNameExistsException" nillable="true" type="tns:ClientWithSuchNickNameExistsException" />
+  <xs:complexType name="ServerException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServerException" nillable="true" type="tns:ServerException" />
+  <xs:complexType name="ClientWithSuchIPAddressExistsException">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServerException">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="ClientWithSuchIPAddressExistsException" nillable="true" type="tns:ClientWithSuchIPAddressExistsException" />
+  <xs:complexType name="SessionWithSuchNameExistsException">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServerException">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SessionWithSuchNameExistsException" nillable="true" type="tns:SessionWithSuchNameExistsException" />
+  <xs:complexType name="SessionDeletionCause">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SessionDeletionCause" nillable="true" type="tns:SessionDeletionCause" />
+  <xs:complexType name="SessionPasswordIsWrongException">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ServerException">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SessionPasswordIsWrongException" nillable="true" type="tns:SessionPasswordIsWrongException" />
+</xs:schema>

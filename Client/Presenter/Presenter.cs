@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Client;
 using Client.Model;
+using Client.View;
 
 namespace Client.Presenter
 {

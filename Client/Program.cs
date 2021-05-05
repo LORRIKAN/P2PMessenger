@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.View;
+using Client.Presenter;
 
 namespace Client
 {
@@ -16,7 +18,9 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            MainWindow window = new MainWindow();
+            Presenter.Presenter presenter = new Presenter.Presenter(window);
+            Application.Run(window);
         }
     }
 }
