@@ -78,68 +78,75 @@ namespace WCF_Service
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);
     }
 
-    [DataContract]
-    public class NoClientWithSuchIPAddressException : Exception
-    {
-        public NoClientWithSuchIPAddressException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class NoClientWithSuchIPAddressException : FaultException
+    //{
+    //    public NoClientWithSuchIPAddressException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class NoClientWithSuchNickNameAndIPAddressException : Exception
-    {
-        public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class NoClientWithSuchNickNameAndIPAddressException : FaultException
+    //{
+    //    public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class ClientWithSuchIPAddressExistsException : Exception
-    {
-        public ClientWithSuchIPAddressExistsException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class ClientWithSuchIPAddressExistsException : FaultException
+    //{
+    //    public ClientWithSuchIPAddressExistsException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class ClientWithSuchNickNameExistsException : Exception
-    {
-        public ClientWithSuchNickNameExistsException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class ClientWithSuchNickNameExistsException : FaultException
+    //{
+    //    public ClientWithSuchNickNameExistsException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class NoSessionWithSuchNameException : Exception
-    {
-        public NoSessionWithSuchNameException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class NoSessionWithSuchNameException : FaultException
+    //{
+    //    public NoSessionWithSuchNameException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class SessionWithSuchNameExistsException : Exception
-    {
-        public SessionWithSuchNameExistsException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class SessionWithSuchNameExistsException : FaultException
+    //{
+    //    public SessionWithSuchNameExistsException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
-    [DataContract]
-    public class SessionPasswordIsWrongException : Exception
-    {
-        public SessionPasswordIsWrongException(string message) : base(message)
-        {
+    //[DataContract]
+    //[KnownType(typeof(FaultException))]
+    //public class SessionPasswordIsWrongException : FaultException
+    //{
+    //    public SessionPasswordIsWrongException(string message) : base(message)
+    //    {
 
-        }
-    }
+    //    }
+    //}
 
     [DataContract]
     public class SessionDeletionCause { }

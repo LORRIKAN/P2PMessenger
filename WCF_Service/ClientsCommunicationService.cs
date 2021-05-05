@@ -44,10 +44,12 @@ namespace WCF_Service
         public ServerClient Connect(IPEndPoint IPAddress, string nickName)
         {
             if (ServerClients.Any(sc => sc.NickName == nickName))
-                throw new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует.");
+                return null;
+            //throw new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует.");
 
             if (ServerClients.Any(sc => sc.IPAddress == IPAddress))
-                throw new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует.");
+                return null;
+                //throw new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует.");
 
             var serverClient = new ServerClient
             {
@@ -64,7 +66,8 @@ namespace WCF_Service
         public Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null)
         {
             if (ServerSessions.Any(s => s.SessionName == sessionName))
-                throw new SessionWithSuchNameExistsException("Сессия с таким именем уже существует.");
+                return null;
+                //throw new SessionWithSuchNameExistsException("Сессия с таким именем уже существует.");
 
             var newSession = new Session
             {
@@ -126,8 +129,9 @@ namespace WCF_Service
         public void JoinSession(Session session, ServerClient serverClient, string sessionPassword)
         {
             if (session.IsPasswordRequired && sessionPassword != session.SessionPassword)
-                throw new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
-                    "сессии является неверным.");
+                return;
+                //throw new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
+                //    "сессии является неверным.");
 
             foreach (ServerClient client in session.Clients)
             {
@@ -166,12 +170,24 @@ namespace WCF_Service
             serverClient.IPAddress = newIPAddress;
         }
 
+        private ArgumentNullException CheckArgumentsForNull(params object[] args)
+        {
+            foreach (object arg in args)
+            {
+                if (arg is null)
+                    return new ArgumentNullException(arg.GetType().Name);
+            }
+
+            return null;
+        }
+
         private ServerClient FindClient(IPEndPoint IPAddress)
         {
             ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.IPAddress == IPAddress);
 
             if (foundClient == null)
-                throw new NoClientWithSuchIPAddressException("Не удаётся найти клиента с заданным IP-адресом.");
+                return null;
+                //throw new NoClientWithSuchIPAddressException("Не удаётся найти клиента с заданным IP-адресом.");
 
             return foundClient;
         }
@@ -181,7 +197,8 @@ namespace WCF_Service
             ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.NickName == nickName);
 
             if (foundClient == null)
-                throw new NoClientWithSuchNickNameAndIPAddressException("Не удаётся найти клиента с заданным ник неймом.");
+                return null;
+                //throw new NoClientWithSuchNickNameAndIPAddressException("Не удаётся найти клиента с заданным ник неймом.");
 
             return foundClient;
         }
@@ -213,7 +230,8 @@ namespace WCF_Service
             Session foundSession = ServerSessions.FirstOrDefault(sc => sc.SessionName == sessionName);
 
             if (foundSession == null)
-                throw new NoSessionWithSuchNameException("Не удаётся найти сессию с заданным именем.");
+                return null;
+                //throw new NoSessionWithSuchNameException("Не удаётся найти сессию с заданным именем.");
 
             return foundSession;
         }

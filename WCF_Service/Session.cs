@@ -25,8 +25,10 @@ namespace WCF_Service
 
         internal Session() { }
 
+        [DataMember]
         internal List<ServerClient> ClientsInternal { get; } = new List<ServerClient>();
 
+        [DataMember]
         internal string SessionPassword { get; set; }
     }
 }
