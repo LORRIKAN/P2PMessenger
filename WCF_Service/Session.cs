@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,22 @@ namespace WCF_Service
     [DataContract]
     public class Session
     {
-        public string SessionName { get; }
+        [DataMember]
+        public string SessionName { get; internal set; }
 
+        [DataMember]
         public bool IsPasswordRequired => !string.IsNullOrEmpty(SessionPassword);
 
-        public IEnumerable<ServerClient> Clients { get; } = new List<ServerClient>();
+        [DataMember]
+        public IEnumerable<ServerClient> Clients { get => ClientsInternal; }
 
-        public ServerClient Creator { get; }
+        [DataMember]
+        public ServerClient Creator { get; internal set; }
 
-        [IgnoreDataMember]
+        internal Session() { }
+
+        internal List<ServerClient> ClientsInternal { get; } = new List<ServerClient>();
+
         internal string SessionPassword { get; set; }
     }
 }

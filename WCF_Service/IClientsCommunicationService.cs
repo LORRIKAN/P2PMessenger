@@ -43,16 +43,19 @@ namespace WCF_Service
         void DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
-        Session JoinSession(ServerClient serverClient, string sessionName, string sessionPassword);
-
-        [OperationContract]
-        Session JoinSession(ServerClient serverClient, Session session, string sessionPassword);
+        Session JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback
     {
         [OperationContract]
+        void NewSessionCreated(Session newSession);
+
+        [OperationContract]
         void ClientJoinedSession(Session session, ServerClient joinedClient);
+
+        [OperationContract]
+        void ClientLeftSession(Session session, ServerClient clientLeft);
 
         [OperationContract]
         void SessionNameChanged(Session session, string sessionOldName, string sessionNewName);
@@ -61,14 +64,71 @@ namespace WCF_Service
         void SessionPasswordChanged(Session session);
 
         [OperationContract]
-        void SessionClientNickNameChanged(Session session, ServerClient serverClient, string clientOldNickName, 
+        void SessionClientNickNameChanged(Session session, ServerClient serverClient, string clientOldNickName,
             string clientNewNickName);
 
         [OperationContract]
-        void SessionClientIPAddressChanged(Session session, ServerClient serverClient, 
+        void SessionClientIPAddressChanged(Session session, ServerClient serverClient,
             IPEndPoint clientOldIPAddress, IPEndPoint clientNewIPAddress);
 
         [OperationContract]
+        void SessionDeleted(Session session, SessionDeletionCause sessionDeletionCause);
+
+        [OperationContract]
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);
+    }
+
+    public class NoClientWithSuchIPAddressException : Exception
+    {
+        public NoClientWithSuchIPAddressException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class NoClientWithSuchNickNameAndIPAddressException : Exception
+    {
+        public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class ClientWithSuchIPAddressExistsException : Exception
+    {
+        public ClientWithSuchIPAddressExistsException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class ClientWithSuchNickNameExistsException : Exception
+    {
+        public ClientWithSuchNickNameExistsException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class NoSessionWithSuchNameException : Exception
+    {
+        public NoSessionWithSuchNameException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public class SessionWithSuchNameExistsException : Exception
+    {
+        public SessionWithSuchNameExistsException(string message) : base(message)
+        {
+
+        }
+    }
+
+    public enum SessionDeletionCause
+    {
+        DeletedByCreator,
+        AllClientsLeft
     }
 }
