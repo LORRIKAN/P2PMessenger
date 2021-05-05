@@ -17,43 +17,28 @@ namespace WCF_Service
 
         private List<Session> ServerSessions { get; set; } = new List<Session>();
 
-        public ServerClient ChangeNickName(ServerClient serverClient, string newNickName)
+        public void ChangeNickName(ServerClient serverClient, string newNickName)
         {
-            ServerClient foundClient;
-
-            try { foundClient = FindClient(serverClient.IPAddress); } catch { throw; }
-
-            IEnumerable<Session> clientSessions = ServerSessions
-                .Where(s => s.Clients.Any(c => c.IPAddress == foundClient.IPAddress));
-
-            foreach (Session session in clientSessions)
+            foreach (Session session in serverClient.Sessions)
             {
                 foreach (ServerClient sessionClient in session.Clients)
                 {
                     sessionClient.OperationContext.GetCallbackChannel<IClientCallback>()
-                        .SessionClientNickNameChanged(session, foundClient, foundClient.NickName, newNickName);
+                        .SessionClientNickNameChanged(session, serverClient, serverClient.NickName, newNickName);
                 }
             }
 
-            foundClient.NickName = newNickName;
-
-            return foundClient;
+            serverClient.NickName = newNickName;
         }
 
-        public Session ChangeSessionPassword(Session session, string newPassword)
+        public void ChangeSessionPassword(Session session, string newPassword)
         {
-            Session foundSession;
-
-            try { foundSession = FindSession(session.SessionName); } catch { throw; }
-
-            foundSession.SessionPassword = newPassword;
+            session.SessionPassword = newPassword;
 
             foreach (ServerClient sessionClient in session.Clients)
             {
                 sessionClient.OperationContext.GetCallbackChannel<IClientCallback>().SessionPasswordChanged(session);
             }
-
-            return foundSession;
         }
 
         public ServerClient Connect(IPEndPoint IPAddress, string nickName)
@@ -78,10 +63,6 @@ namespace WCF_Service
 
         public Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null)
         {
-            ServerClient foundClient;
-
-            try { foundClient = FindClient(serverClient.IPAddress, serverClient.NickName); } catch { throw; }
-
             if (ServerSessions.Any(s => s.SessionName == sessionName))
                 throw new SessionWithSuchNameExistsException("Сессия с таким именем уже существует.");
 
@@ -89,51 +70,52 @@ namespace WCF_Service
             {
                 SessionName = sessionName,
                 SessionPassword = sessionPassword,
-                Creator = foundClient
+                Creator = serverClient
             };
 
-            newSession.ClientsInternal.Add(foundClient);
+            newSession.ClientsInternal.Add(serverClient);
 
             ServerSessions.Add(newSession);
 
-            foundClient.SessionsInternal.Add(newSession);
+            serverClient.SessionsInternal.Add(newSession);
+
+            foreach (ServerClient client in ServerClients)
+            {
+                client.OperationContext.GetCallbackChannel<IClientCallback>().NewSessionCreated(newSession);
+            }
 
             return newSession;
         }
 
-        public void DeleteSession(Session session)
+        public void DeleteSession(Session session, SessionDeletionCause deletionCause)
         {
-            Session foundSession;
-            try { foundSession = FindSession(session.SessionName); } catch { return; }
-
             foreach (ServerClient client in session.Clients)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().SessionDeleted(session, SessionDeletionCause.DeletedByCreator);
-                client.SessionsInternal.Remove(foundSession);
+                client.OperationContext.GetCallbackChannel<IClientCallback>().SessionDeleted(session, deletionCause);
+                client.SessionsInternal.Remove(session);
             }
 
-            ServerSessions.Remove(foundSession);
+            ServerSessions.Remove(session);
         }
 
         public void Disconnect(ServerClient serverClient)
         {
-            ServerClient foundClient;
-            try { foundClient = FindClient(serverClient.IPAddress, serverClient.NickName); } catch { return; }
-
             foreach (Session session in serverClient.Sessions)
-                DisconnectFromSession(session, foundClient);
+                DisconnectFromSession(session, serverClient);
 
-            ServerClients.Remove(foundClient);
+            ServerClients.Remove(serverClient);
         }
 
         public void DisconnectFromSession(Session session, ServerClient serverClient)
         {
-            ServerClient foundClient;
-            try { foundClient = FindClient(serverClient.IPAddress, serverClient.NickName); } catch { return; }
+            foreach (ServerClient client in session.Clients)
+            {
+                client.OperationContext.GetCallbackChannel<IClientCallback>().ClientLeftSession(session, serverClient);
+            }
 
-            ServerClient sessionCreator = session.Creator;
+            serverClient.SessionsInternal.Remove(session);
 
-
+            session.ClientsInternal.Remove(serverClient);
         }
 
         public IEnumerable<Session> GetSessionsList()
@@ -141,29 +123,47 @@ namespace WCF_Service
             return ServerSessions;
         }
 
-        public Session JoinSession(Session session, ServerClient serverClient, string sessionPassword)
+        public void JoinSession(Session session, ServerClient serverClient, string sessionPassword)
         {
-            throw new NotImplementedException();
+            if (session.IsPasswordRequired && sessionPassword != session.SessionPassword)
+                throw new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
+                    "сессии является неверным.");
+
+            foreach (ServerClient client in session.Clients)
+            {
+                client.OperationContext.GetCallbackChannel<IClientCallback>().ClientJoinedSession(session, serverClient);
+            }
+
+            session.ClientsInternal.Add(serverClient);
+
+            serverClient.SessionsInternal.Add(session);
         }
 
-        public Session RenameSession(Session session, string newName)
+        public void RenameSession(Session session, string newName)
         {
-            throw new NotImplementedException();
+            foreach (ServerClient client in session.Clients)
+            {
+                client.OperationContext.GetCallbackChannel<IClientCallback>().SessionNameChanged(session, session.SessionName, newName);
+            }
+
+            session.SessionName = newName;
         }
 
-        public ServerClient UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress)
+        public void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress)
         {
-            throw new NotImplementedException();
-        }
+            if (serverClient.IPAddress != newIPAddress)
+            {
+                foreach (Session session in serverClient.Sessions)
+                {
+                    foreach (ServerClient client in session.Clients)
+                    {
+                        client.OperationContext.GetCallbackChannel<IClientCallback>()
+                            .SessionClientIPAddressChanged(session, serverClient, serverClient.IPAddress, newIPAddress);
+                    }
+                }
+            }
 
-        private void DisconnectFromSessionInternal(Session session, ServerClient serverClient)
-        {
-            if (session.Creator == serverClient)
-        }
-
-        private void DeleteSessionInternal(Session session, SessionDeletionCause deletionCause)
-        {
-
+            serverClient.IPAddress = newIPAddress;
         }
 
         private ServerClient FindClient(IPEndPoint IPAddress)
@@ -171,7 +171,7 @@ namespace WCF_Service
             ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.IPAddress == IPAddress);
 
             if (foundClient == null)
-                throw new EndpointNotFoundException("Не удаётся найти клиента с заданным IP-адресом.");
+                throw new NoClientWithSuchIPAddressException("Не удаётся найти клиента с заданным IP-адресом.");
 
             return foundClient;
         }
@@ -181,7 +181,7 @@ namespace WCF_Service
             ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.NickName == nickName);
 
             if (foundClient == null)
-                throw new ArgumentException("Не удаётся найти клиента с заданным ник неймом.");
+                throw new NoClientWithSuchNickNameAndIPAddressException("Не удаётся найти клиента с заданным ник неймом.");
 
             return foundClient;
         }

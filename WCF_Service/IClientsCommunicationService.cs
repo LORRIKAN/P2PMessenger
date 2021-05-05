@@ -16,10 +16,10 @@ namespace WCF_Service
         ServerClient Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
-        ServerClient UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
+        void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
-        ServerClient ChangeNickName(ServerClient serverClient, string nickName);
+        void ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
         void Disconnect(ServerClient serverClient);
@@ -28,22 +28,22 @@ namespace WCF_Service
         Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null);
 
         [OperationContract]
-        Session RenameSession(Session session, string newName);
+        void RenameSession(Session session, string newName);
 
         [OperationContract]
-        Session ChangeSessionPassword(Session session, string newPassword);
+        void ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
         IEnumerable<Session> GetSessionsList();
 
         [OperationContract]
-        void DeleteSession(Session session);
+        void DeleteSession(Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
         void DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
-        Session JoinSession(Session session, ServerClient serverClient, string sessionPassword);
+        void JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback
@@ -78,6 +78,7 @@ namespace WCF_Service
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);
     }
 
+    [DataContract]
     public class NoClientWithSuchIPAddressException : Exception
     {
         public NoClientWithSuchIPAddressException(string message) : base(message)
@@ -86,6 +87,7 @@ namespace WCF_Service
         }
     }
 
+    [DataContract]
     public class NoClientWithSuchNickNameAndIPAddressException : Exception
     {
         public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
@@ -94,6 +96,7 @@ namespace WCF_Service
         }
     }
 
+    [DataContract]
     public class ClientWithSuchIPAddressExistsException : Exception
     {
         public ClientWithSuchIPAddressExistsException(string message) : base(message)
@@ -102,6 +105,7 @@ namespace WCF_Service
         }
     }
 
+    [DataContract]
     public class ClientWithSuchNickNameExistsException : Exception
     {
         public ClientWithSuchNickNameExistsException(string message) : base(message)
@@ -110,6 +114,7 @@ namespace WCF_Service
         }
     }
 
+    [DataContract]
     public class NoSessionWithSuchNameException : Exception
     {
         public NoSessionWithSuchNameException(string message) : base(message)
@@ -118,6 +123,7 @@ namespace WCF_Service
         }
     }
 
+    [DataContract]
     public class SessionWithSuchNameExistsException : Exception
     {
         public SessionWithSuchNameExistsException(string message) : base(message)
@@ -126,9 +132,15 @@ namespace WCF_Service
         }
     }
 
-    public enum SessionDeletionCause
+    [DataContract]
+    public class SessionPasswordIsWrongException : Exception
     {
-        DeletedByCreator,
-        AllClientsLeft
+        public SessionPasswordIsWrongException(string message) : base(message)
+        {
+
+        }
     }
+
+    [DataContract]
+    public class SessionDeletionCause { }
 }
