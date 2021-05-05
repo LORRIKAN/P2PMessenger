@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WCF_Service
 {
     [DataContract]
-    public class Session
+    public class Session : IEquatable<Session>
     {
         [DataMember]
         public string SessionName { get; internal set; }
@@ -25,10 +25,34 @@ namespace WCF_Service
 
         internal Session() { }
 
-        [DataMember]
         internal List<ServerClient> ClientsInternal { get; } = new List<ServerClient>();
 
-        [DataMember]
         internal string SessionPassword { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Session);
+        }
+
+        public bool Equals(Session other)
+        {
+            return other != null &&
+                   SessionName == other.SessionName;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1594474388 + EqualityComparer<string>.Default.GetHashCode(SessionName);
+        }
+
+        public static bool operator ==(Session left, Session right)
+        {
+            return EqualityComparer<Session>.Default.Equals(left, right);
+        }
+
+        public static bool operator !=(Session left, Session right)
+        {
+            return !(left == right);
+        }
     }
 }
