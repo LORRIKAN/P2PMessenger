@@ -9,22 +9,24 @@ using System.Text;
 
 namespace WCF_Service
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени класса "ServiceChat" в коде и файле конфигурации.
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ClientsCommunicationService : IClientsCommunicationService
     {
-        private List<ServerClient> ServerClients { get; set; } = new List<ServerClient>();
+        private Dictionary<ServerClient, OperationContext> ServerClients { get; set; } = new Dictionary<ServerClient, OperationContext>();
 
         private List<Session> ServerSessions { get; set; } = new List<Session>();
 
         public void ChangeNickName(ServerClient serverClient, string newNickName)
         {
+            try { CheckForArgumentNullException(serverClient, newNickName); }
+            catch(ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             foreach (Session session in serverClient.Sessions)
             {
                 foreach (ServerClient sessionClient in session.Clients)
                 {
-                    sessionClient.OperationContext.GetCallbackChannel<IClientCallback>()
-                        .SessionClientNickNameChanged(session, serverClient, serverClient.NickName, newNickName);
+                    IClientCallback callbackChannel = ServerClients[sessionClient].GetCallbackChannel<IClientCallback>();
+                    callbackChannel.SessionClientNickNameChanged(session, serverClient, serverClient.NickName, newNickName);
                 }
             }
 
@@ -33,41 +35,50 @@ namespace WCF_Service
 
         public void ChangeSessionPassword(Session session, string newPassword)
         {
+            try { CheckForArgumentNullException(session); }
+            catch(ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             session.SessionPassword = newPassword;
 
             foreach (ServerClient sessionClient in session.Clients)
             {
-                sessionClient.OperationContext.GetCallbackChannel<IClientCallback>().SessionPasswordChanged(session);
+                IClientCallback callbackChannel = ServerClients[sessionClient].GetCallbackChannel<IClientCallback>();
+                callbackChannel.SessionPasswordChanged(session);
             }
         }
 
         public ServerClient Connect(IPEndPoint IPAddress, string nickName)
         {
-            if (ServerClients.Any(sc => sc.NickName == nickName))
-                return null;
-            //throw new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует.");
+            try { CheckForArgumentNullException(IPAddress, nickName); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
 
-            if (ServerClients.Any(sc => sc.IPAddress == IPAddress))
-                return null;
-                //throw new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует.");
+            if (ServerClients.Keys.Any(sc => sc.NickName == nickName))
+                throw new FaultException<ClientWithSuchNickNameExistsException>(
+                    new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует."));
+
+            if (ServerClients.Keys.Any(sc => sc.IPAddress == IPAddress))
+                throw new FaultException<ClientWithSuchIPAddressExistsException>(
+                    new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует."));
 
             var serverClient = new ServerClient
             {
                 IPAddress = IPAddress,
                 NickName = nickName,
-                OperationContext = OperationContext.Current
             };
 
-            ServerClients.Add(serverClient);
+            ServerClients[serverClient] = OperationContext.Current;
 
             return serverClient;
         }
 
         public Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null)
         {
+            try { CheckForArgumentNullException(serverClient, sessionName); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             if (ServerSessions.Any(s => s.SessionName == sessionName))
-                return null;
-                //throw new SessionWithSuchNameExistsException("Сессия с таким именем уже существует.");
+                throw new FaultException<SessionWithSuchNameExistsException>(
+                    new SessionWithSuchNameExistsException("Сессия с таким именем уже существует."));
 
             var newSession = new Session
             {
@@ -82,9 +93,10 @@ namespace WCF_Service
 
             serverClient.SessionsInternal.Add(newSession);
 
-            foreach (ServerClient client in ServerClients)
+            foreach (ServerClient client in ServerClients.Keys)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().NewSessionCreated(newSession);
+                IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                callbackChannel.NewSessionCreated(newSession);
             }
 
             return newSession;
@@ -92,9 +104,13 @@ namespace WCF_Service
 
         public void DeleteSession(Session session, SessionDeletionCause deletionCause)
         {
+            try { CheckForArgumentNullException(session); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             foreach (ServerClient client in session.Clients)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().SessionDeleted(session, deletionCause);
+                IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                callbackChannel.SessionDeleted(session, deletionCause);
                 client.SessionsInternal.Remove(session);
             }
 
@@ -103,6 +119,9 @@ namespace WCF_Service
 
         public void Disconnect(ServerClient serverClient)
         {
+            try { CheckForArgumentNullException(serverClient); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             foreach (Session session in serverClient.Sessions)
                 DisconnectFromSession(session, serverClient);
 
@@ -111,9 +130,13 @@ namespace WCF_Service
 
         public void DisconnectFromSession(Session session, ServerClient serverClient)
         {
+            try { CheckForArgumentNullException(session, serverClient); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             foreach (ServerClient client in session.Clients)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().ClientLeftSession(session, serverClient);
+                IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                callbackChannel.ClientLeftSession(session, serverClient);
             }
 
             serverClient.SessionsInternal.Remove(session);
@@ -128,14 +151,18 @@ namespace WCF_Service
 
         public void JoinSession(Session session, ServerClient serverClient, string sessionPassword)
         {
+            try { CheckForArgumentNullException(session, serverClient); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             if (session.IsPasswordRequired && sessionPassword != session.SessionPassword)
-                return;
-                //throw new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
-                //    "сессии является неверным.");
+                throw new FaultException<SessionPasswordIsWrongException>(
+                    new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
+                    "сессии является неверным."));
 
             foreach (ServerClient client in session.Clients)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().ClientJoinedSession(session, serverClient);
+                IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                callbackChannel.ClientJoinedSession(session, serverClient);
             }
 
             session.ClientsInternal.Add(serverClient);
@@ -145,9 +172,13 @@ namespace WCF_Service
 
         public void RenameSession(Session session, string newName)
         {
+            try { CheckForArgumentNullException(session, newName); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             foreach (ServerClient client in session.Clients)
             {
-                client.OperationContext.GetCallbackChannel<IClientCallback>().SessionNameChanged(session, session.SessionName, newName);
+                IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                callbackChannel.SessionNameChanged(session, session.SessionName, newName);
             }
 
             session.SessionName = newName;
@@ -155,14 +186,17 @@ namespace WCF_Service
 
         public void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress)
         {
+            try { CheckForArgumentNullException(serverClient, newIPAddress); }
+            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+
             if (serverClient.IPAddress != newIPAddress)
             {
                 foreach (Session session in serverClient.Sessions)
                 {
                     foreach (ServerClient client in session.Clients)
                     {
-                        client.OperationContext.GetCallbackChannel<IClientCallback>()
-                            .SessionClientIPAddressChanged(session, serverClient, serverClient.IPAddress, newIPAddress);
+                        IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
+                        callbackChannel.SessionClientIPAddressChanged(session, serverClient, serverClient.IPAddress, newIPAddress);
                     }
                 }
             }
@@ -170,70 +204,73 @@ namespace WCF_Service
             serverClient.IPAddress = newIPAddress;
         }
 
-        private ArgumentNullException CheckArgumentsForNull(params object[] args)
+        private void CheckForArgumentNullException(params object[] args)
         {
             foreach (object arg in args)
             {
                 if (arg is null)
-                    return new ArgumentNullException(arg.GetType().Name);
+                    throw new ArgumentNullException(arg.GetType().Name + " не может быть null");
+
+                if (arg is string str)
+                {
+                    if (string.IsNullOrEmpty(str))
+                        throw new ArgumentNullException(str.GetType().Name + " не может быть null или пустой");
+                    if (string.IsNullOrWhiteSpace(str))
+                        throw new ArgumentNullException(str.GetType().Name + " не может быть null или заполненной только знаками пробела");
+                }
             }
-
-            return null;
         }
 
-        private ServerClient FindClient(IPEndPoint IPAddress)
-        {
-            ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.IPAddress == IPAddress);
+        //private ServerClient FindClient(IPEndPoint IPAddress)
+        //{
+        //    ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.IPAddress == IPAddress);
 
-            if (foundClient == null)
-                return null;
-                //throw new NoClientWithSuchIPAddressException("Не удаётся найти клиента с заданным IP-адресом.");
+        //    if (foundClient == null)
+        //        throw new NoClientWithSuchIPAddressException("Не удаётся найти клиента с заданным IP-адресом.");
 
-            return foundClient;
-        }
+        //    return foundClient;
+        //}
 
-        private ServerClient FindClient(string nickName)
-        {
-            ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.NickName == nickName);
+        //private ServerClient FindClient(string nickName)
+        //{
+        //    ServerClient foundClient = ServerClients.FirstOrDefault(sc => sc.NickName == nickName);
 
-            if (foundClient == null)
-                return null;
-                //throw new NoClientWithSuchNickNameAndIPAddressException("Не удаётся найти клиента с заданным ник неймом.");
+        //    if (foundClient == null)
+        //        throw new NoClientWithSuchNickNameAndIPAddressException("Не удаётся найти клиента с заданным ник неймом.");
 
-            return foundClient;
-        }
+        //    return foundClient;
+        //}
 
-        private ServerClient FindClient(IPEndPoint IPAddress, string nickName)
-        {
-            ServerClient clientFoundByIPAddress;
-            ServerClient clientFoundByNickName;
-            try
-            {
-                clientFoundByIPAddress = FindClient(IPAddress);
-                clientFoundByNickName = FindClient(nickName);
+        //private ServerClient FindClient(IPEndPoint IPAddress, string nickName)
+        //{
+        //    ServerClient clientFoundByIPAddress;
+        //    ServerClient clientFoundByNickName;
+        //    try
+        //    {
+        //        clientFoundByIPAddress = FindClient(IPAddress);
+        //        clientFoundByNickName = FindClient(nickName);
 
-                if (clientFoundByIPAddress.IPAddress != clientFoundByNickName.IPAddress ||
-                    clientFoundByIPAddress.NickName != clientFoundByNickName.NickName)
-                    throw new InvalidOperationException("Было найдено два разных клиента для заданных IP-адреса " +
-                        "и ник нейма.");
-            }
-            catch
-            {
-                throw;
-            }
+        //        if (clientFoundByIPAddress.IPAddress != clientFoundByNickName.IPAddress ||
+        //            clientFoundByIPAddress.NickName != clientFoundByNickName.NickName)
+        //            throw new InvalidOperationException("Было найдено два разных клиента для заданных IP-адреса " +
+        //                "и ник нейма.");
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
 
-            return clientFoundByIPAddress;
-        }
+        //    return clientFoundByIPAddress;
+        //}
 
-        private Session FindSession(string sessionName)
-        {
-            Session foundSession = ServerSessions.FirstOrDefault(sc => sc.SessionName == sessionName);
+        //private Session FindSession(string sessionName)
+        //{
+        //    Session foundSession = ServerSessions.FirstOrDefault(sc => sc.SessionName == sessionName);
 
-            if (foundSession == null)
-                return null;
-                //throw new NoSessionWithSuchNameException("Не удаётся найти сессию с заданным именем.");
+        //    if (foundSession == null)
+        //        throw new NoSessionWithSuchNameException("Не удаётся найти сессию с заданным именем.");
 
-            return foundSession;
-        }
+        //    return foundSession;
+        //}
     }
 }

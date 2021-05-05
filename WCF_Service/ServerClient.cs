@@ -24,9 +24,6 @@ namespace WCF_Service
         internal ServerClient() { }
 
         [DataMember]
-        internal OperationContext OperationContext { get; set; }
-
-        [DataMember]
         internal List<Session> SessionsInternal { get; set; } = new List<Session>();
     }
 }

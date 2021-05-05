@@ -8,41 +8,54 @@ using System.Text;
 
 namespace WCF_Service
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IServiceChat" в коде и файле конфигурации.
     [ServiceContract(CallbackContract = typeof(IClientCallback))]
     public interface IClientsCommunicationService
     {
         [OperationContract]
+        [FaultContract(typeof(ClientWithSuchNickNameExistsException))]
+        [FaultContract(typeof(ClientWithSuchIPAddressExistsException))]
+        [FaultContract(typeof(ArgumentNullException))]
         ServerClient Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void Disconnect(ServerClient serverClient);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
+        [FaultContract(typeof(SessionWithSuchNameExistsException))]
         Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void RenameSession(Session session, string newName);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
         IEnumerable<Session> GetSessionsList();
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void DeleteSession(Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
+        [FaultContract(typeof(SessionPasswordIsWrongException))]
+        [FaultContract(typeof(ArgumentNullException))]
         void JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
@@ -78,76 +91,10 @@ namespace WCF_Service
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);
     }
 
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class NoClientWithSuchIPAddressException : FaultException
-    //{
-    //    public NoClientWithSuchIPAddressException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class NoClientWithSuchNickNameAndIPAddressException : FaultException
-    //{
-    //    public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class ClientWithSuchIPAddressExistsException : FaultException
-    //{
-    //    public ClientWithSuchIPAddressExistsException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class ClientWithSuchNickNameExistsException : FaultException
-    //{
-    //    public ClientWithSuchNickNameExistsException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class NoSessionWithSuchNameException : FaultException
-    //{
-    //    public NoSessionWithSuchNameException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class SessionWithSuchNameExistsException : FaultException
-    //{
-    //    public SessionWithSuchNameExistsException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
-    //[DataContract]
-    //[KnownType(typeof(FaultException))]
-    //public class SessionPasswordIsWrongException : FaultException
-    //{
-    //    public SessionPasswordIsWrongException(string message) : base(message)
-    //    {
-
-    //    }
-    //}
-
     [DataContract]
-    public class SessionDeletionCause { }
+    public class SessionDeletionCause
+    {
+        [DataMember]
+        public string Message { get; set; }
+    }
 }
