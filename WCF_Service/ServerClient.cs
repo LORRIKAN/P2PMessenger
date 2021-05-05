@@ -18,12 +18,12 @@ namespace WCF_Service
         [DataMember]
         public string NickName { get; internal set; }
 
+        [DataMember]
         public IEnumerable<Session> Sessions { get => SessionsInternal; }
 
         internal ServerClient() { }
 
-        internal OperationContext OperationContext { get; set; }
-
+        [DataMember]
         internal List<Session> SessionsInternal { get; set; } = new List<Session>();
     }
 }

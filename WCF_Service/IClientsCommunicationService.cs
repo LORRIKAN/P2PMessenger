@@ -8,42 +8,55 @@ using System.Text;
 
 namespace WCF_Service
 {
-    // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IServiceChat" в коде и файле конфигурации.
     [ServiceContract(CallbackContract = typeof(IClientCallback))]
     public interface IClientsCommunicationService
     {
         [OperationContract]
+        [FaultContract(typeof(ClientWithSuchNickNameExistsException))]
+        [FaultContract(typeof(ClientWithSuchIPAddressExistsException))]
+        [FaultContract(typeof(ArgumentNullException))]
         ServerClient Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
-        ServerClient UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
+        [FaultContract(typeof(ArgumentNullException))]
+        void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
-        ServerClient ChangeNickName(ServerClient serverClient, string nickName);
+        [FaultContract(typeof(ArgumentNullException))]
+        void ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void Disconnect(ServerClient serverClient);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
+        [FaultContract(typeof(SessionWithSuchNameExistsException))]
         Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null);
 
         [OperationContract]
-        Session RenameSession(Session session, string newName);
+        [FaultContract(typeof(ArgumentNullException))]
+        void RenameSession(Session session, string newName);
 
         [OperationContract]
-        Session ChangeSessionPassword(Session session, string newPassword);
+        [FaultContract(typeof(ArgumentNullException))]
+        void ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
         IEnumerable<Session> GetSessionsList();
 
         [OperationContract]
-        void DeleteSession(Session session);
+        [FaultContract(typeof(ArgumentNullException))]
+        void DeleteSession(Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
+        [FaultContract(typeof(ArgumentNullException))]
         void DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
-        Session JoinSession(Session session, ServerClient serverClient, string sessionPassword);
+        [FaultContract(typeof(SessionPasswordIsWrongException))]
+        [FaultContract(typeof(ArgumentNullException))]
+        void JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback
@@ -78,57 +91,10 @@ namespace WCF_Service
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);
     }
 
-    public class NoClientWithSuchIPAddressException : Exception
+    [DataContract]
+    public class SessionDeletionCause
     {
-        public NoClientWithSuchIPAddressException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class NoClientWithSuchNickNameAndIPAddressException : Exception
-    {
-        public NoClientWithSuchNickNameAndIPAddressException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class ClientWithSuchIPAddressExistsException : Exception
-    {
-        public ClientWithSuchIPAddressExistsException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class ClientWithSuchNickNameExistsException : Exception
-    {
-        public ClientWithSuchNickNameExistsException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class NoSessionWithSuchNameException : Exception
-    {
-        public NoSessionWithSuchNameException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public class SessionWithSuchNameExistsException : Exception
-    {
-        public SessionWithSuchNameExistsException(string message) : base(message)
-        {
-
-        }
-    }
-
-    public enum SessionDeletionCause
-    {
-        DeletedByCreator,
-        AllClientsLeft
+        [DataMember]
+        public string Message { get; set; }
     }
 }
