@@ -12,13 +12,18 @@ namespace WCF_Service
     [DataContract]
     public class ServerClient
     {
+        [DataMember]
         public IPEndPoint IPAddress { get; internal set; }
 
+        [DataMember]
         public string NickName { get; internal set; }
+
+        public IEnumerable<Session> Sessions { get => SessionsInternal; }
 
         internal ServerClient() { }
 
-        [IgnoreDataMember]
         internal OperationContext OperationContext { get; set; }
+
+        internal List<Session> SessionsInternal { get; set; } = new List<Session>();
     }
 }
