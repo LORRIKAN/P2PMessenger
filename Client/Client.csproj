@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="LumiSoft.Net, Version=2.0.4492.11923, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LumiSoft.Net.2.0.4492.11923\lib\LumiSoft.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -57,6 +61,7 @@
     <Compile Include="Model\Model.cs" />
     <Compile Include="Model\p2pConnectionManager\p2pConnectionManager.cs" />
     <Compile Include="Model\ServerConnectionManager\ServerConnectionManager.cs" />
+    <Compile Include="Model\StunManager.cs" />
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="View\MainWindow.cs">
       <SubType>Form</SubType>
@@ -106,6 +111,7 @@
     <None Include="Connected Services\ClientsCommunicationService\item6.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

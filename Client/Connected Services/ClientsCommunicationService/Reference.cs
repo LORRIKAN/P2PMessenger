@@ -31,9 +31,6 @@ namespace Client.ClientsCommunicationService {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Client.ClientsCommunicationService.Session[] SessionsField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client.ClientsCommunicationService.Session[] SessionsInternalField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -83,19 +80,6 @@ namespace Client.ClientsCommunicationService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client.ClientsCommunicationService.Session[] SessionsInternal {
-            get {
-                return this.SessionsInternalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SessionsInternalField, value) != true)) {
-                    this.SessionsInternalField = value;
-                    this.RaisePropertyChanged("SessionsInternal");
-                }
-            }
-        }
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -119,9 +103,6 @@ namespace Client.ClientsCommunicationService {
         private Client.ClientsCommunicationService.ServerClient[] ClientsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Client.ClientsCommunicationService.ServerClient[] ClientsInternalField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Client.ClientsCommunicationService.ServerClient CreatorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -129,9 +110,6 @@ namespace Client.ClientsCommunicationService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SessionNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SessionPasswordField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -152,19 +130,6 @@ namespace Client.ClientsCommunicationService {
                 if ((object.ReferenceEquals(this.ClientsField, value) != true)) {
                     this.ClientsField = value;
                     this.RaisePropertyChanged("Clients");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Client.ClientsCommunicationService.ServerClient[] ClientsInternal {
-            get {
-                return this.ClientsInternalField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ClientsInternalField, value) != true)) {
-                    this.ClientsInternalField = value;
-                    this.RaisePropertyChanged("ClientsInternal");
                 }
             }
         }
@@ -204,19 +169,6 @@ namespace Client.ClientsCommunicationService {
                 if ((object.ReferenceEquals(this.SessionNameField, value) != true)) {
                     this.SessionNameField = value;
                     this.RaisePropertyChanged("SessionName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SessionPassword {
-            get {
-                return this.SessionPasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SessionPasswordField, value) != true)) {
-                    this.SessionPasswordField = value;
-                    this.RaisePropertyChanged("SessionPassword");
                 }
             }
         }

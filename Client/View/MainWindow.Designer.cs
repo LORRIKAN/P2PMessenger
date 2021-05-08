@@ -54,11 +54,12 @@ namespace Client.View
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 83.33334F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1305, 897);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1305, 846);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
@@ -66,25 +67,28 @@ namespace Client.View
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(3, 750);
+            this.panel1.Location = new System.Drawing.Point(3, 706);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(211, 144);
+            this.panel1.Size = new System.Drawing.Size(211, 138);
             this.panel1.TabIndex = 0;
             // 
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(3, 76);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(205, 65);
+            this.button2.Size = new System.Drawing.Size(205, 58);
             this.button2.TabIndex = 1;
             this.button2.Text = "Открыть сессию";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 3);
+            this.button1.Location = new System.Drawing.Point(3, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(205, 67);
+            this.button1.Size = new System.Drawing.Size(205, 66);
             this.button1.TabIndex = 0;
             this.button1.Text = "Присоединиться";
             this.button1.UseVisualStyleBackColor = true;
@@ -94,24 +98,27 @@ namespace Client.View
             this.panel2.Controls.Add(this.textBox2);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(220, 750);
+            this.panel2.Location = new System.Drawing.Point(220, 706);
+            this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1082, 144);
+            this.panel2.Size = new System.Drawing.Size(1082, 138);
             this.panel2.TabIndex = 1;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(3, 3);
+            this.textBox2.Location = new System.Drawing.Point(3, 2);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(878, 138);
+            this.textBox2.Size = new System.Drawing.Size(879, 131);
             this.textBox2.TabIndex = 1;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(887, 3);
+            this.button3.Location = new System.Drawing.Point(887, 2);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(192, 138);
+            this.button3.Size = new System.Drawing.Size(192, 132);
             this.button3.TabIndex = 0;
             this.button3.Text = "Отправить";
             this.button3.UseVisualStyleBackColor = true;
@@ -121,31 +128,36 @@ namespace Client.View
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(3, 3);
+            this.listBox1.Location = new System.Drawing.Point(3, 2);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(211, 741);
+            this.listBox1.Size = new System.Drawing.Size(211, 700);
             this.listBox1.TabIndex = 2;
             // 
             // textBox1
             // 
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(220, 3);
+            this.textBox1.Location = new System.Drawing.Point(220, 2);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1082, 741);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(1082, 700);
             this.textBox1.TabIndex = 3;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1305, 897);
+            this.ClientSize = new System.Drawing.Size(1305, 846);
             this.Controls.Add(this.tableLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
