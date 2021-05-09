@@ -27,6 +27,7 @@ namespace Client.Model.ServerConnectionManager
             switch (connectionResult.ServerFault)
             {
                 case null:
+                    serverClient = connectionResult.Result;
                     return true;
 
                 default:

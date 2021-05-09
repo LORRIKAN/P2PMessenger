@@ -57,6 +57,15 @@ namespace WCF_Service
         [OperationContract]
         ServerFault? DisconnectFromSession(Session session, ServerClient serverClient);
 
+        /// <summary>
+        /// Исключения:
+        /// ArgumentNull_Exception,
+        /// WrongPassword_Exception
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="serverClient"></param>
+        /// <param name="sessionPassword"></param>
+        /// <returns></returns>
         [OperationContract]
         ServerFault? JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }

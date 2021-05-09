@@ -64,8 +64,7 @@ namespace WCF_Service
                 return result;
             }
 
-            if (ServerClients.Keys.Any(sc => sc.IPAddress.Address == IPAddress.Address
-                && sc.IPAddress.Port == IPAddress.Port))
+            if (ServerClients.Keys.Any(sc => sc.IPAddress.Equals(IPAddress)))
             {
                 result.ServerFault = ServerFault.ServerClient_IPAddressOccupied_Exception;
                 return result;
