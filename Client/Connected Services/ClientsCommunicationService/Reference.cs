@@ -15,6 +15,66 @@ namespace Client.ClientsCommunicationService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OperationResultOfServerClienta_PaS5gWf", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
+    [System.SerializableAttribute()]
+    public partial struct OperationResultOfServerClienta_PaS5gWf : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Client.ClientsCommunicationService.ServerClient ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFaultField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Client.ClientsCommunicationService.ServerClient Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFault {
+            get {
+                return this.ServerFaultField;
+            }
+            set {
+                if ((this.ServerFaultField.Equals(value) != true)) {
+                    this.ServerFaultField = value;
+                    this.RaisePropertyChanged("ServerFault");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerClient", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
     [System.SerializableAttribute()]
     public partial class ServerClient : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -88,6 +148,26 @@ namespace Client.ClientsCommunicationService {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServerFault", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
+    public enum ServerFault : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ArgumentNull_Exception = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ServerClient_NicknameOccupied_Exception = 1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        ServerClient_IPAddressOccupied_Exception = 2,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Session_NameOccupied_Exception = 3,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        WrongPassword_Exception = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -185,21 +265,19 @@ namespace Client.ClientsCommunicationService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OperationResultOfSessiona_PaS5gWf", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ClientsCommunicationService.ClientWithSuchIPAddressExistsException))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ClientsCommunicationService.SessionWithSuchNameExistsException))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ClientsCommunicationService.SessionPasswordIsWrongException))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Client.ClientsCommunicationService.ClientWithSuchNickNameExistsException))]
-    public partial class ServerException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial struct OperationResultOfSessiona_PaS5gWf : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MessageField;
+        private Client.ClientsCommunicationService.Session ResultField;
         
-        [global::System.ComponentModel.BrowsableAttribute(false)]
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFaultField;
+        
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
                 return this.extensionDataField;
@@ -210,21 +288,34 @@ namespace Client.ClientsCommunicationService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Message {
+        public Client.ClientsCommunicationService.Session Result {
             get {
-                return this.MessageField;
+                return this.ResultField;
             }
             set {
-                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
-                    this.MessageField = value;
-                    this.RaisePropertyChanged("Message");
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFault {
+            get {
+                return this.ServerFaultField;
+            }
+            set {
+                if ((this.ServerFaultField.Equals(value) != true)) {
+                    this.ServerFaultField = value;
+                    this.RaisePropertyChanged("ServerFault");
                 }
             }
         }
         
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
-        protected void RaisePropertyChanged(string propertyName) {
+        void RaisePropertyChanged(string propertyName) {
             System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
             if ((propertyChanged != null)) {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
@@ -234,30 +325,62 @@ namespace Client.ClientsCommunicationService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ClientWithSuchIPAddressExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="OperationResultOfArrayOfSessiona_PaS5gWf", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
     [System.SerializableAttribute()]
-    public partial class ClientWithSuchIPAddressExistsException : Client.ClientsCommunicationService.ServerException {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SessionWithSuchNameExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-    [System.SerializableAttribute()]
-    public partial class SessionWithSuchNameExistsException : Client.ClientsCommunicationService.ServerException {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SessionPasswordIsWrongException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-    [System.SerializableAttribute()]
-    public partial class SessionPasswordIsWrongException : Client.ClientsCommunicationService.ServerException {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ClientWithSuchNickNameExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-    [System.SerializableAttribute()]
-    public partial class ClientWithSuchNickNameExistsException : Client.ClientsCommunicationService.ServerException {
+    public partial struct OperationResultOfArrayOfSessiona_PaS5gWf : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Client.ClientsCommunicationService.Session[] ResultField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFaultField;
+        
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Client.ClientsCommunicationService.Session[] Result {
+            get {
+                return this.ResultField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ResultField, value) != true)) {
+                    this.ResultField = value;
+                    this.RaisePropertyChanged("Result");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> ServerFault {
+            get {
+                return this.ServerFaultField;
+            }
+            set {
+                if ((this.ServerFaultField.Equals(value) != true)) {
+                    this.ServerFaultField = value;
+                    this.RaisePropertyChanged("ServerFault");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -310,98 +433,70 @@ namespace Client.ClientsCommunicationService {
     public interface IClientsCommunicationService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/Connect", ReplyAction="http://tempuri.org/IClientsCommunicationService/ConnectResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Client.ClientsCommunicationService.ClientWithSuchNickNameExistsException), Action="http://tempuri.org/IClientsCommunicationService/ConnectClientWithSuchNickNameExis" +
-            "tsExceptionFault", Name="ClientWithSuchNickNameExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Client.ClientsCommunicationService.ClientWithSuchIPAddressExistsException), Action="http://tempuri.org/IClientsCommunicationService/ConnectClientWithSuchIPAddressExi" +
-            "stsExceptionFault", Name="ClientWithSuchIPAddressExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/ConnectArgumentNullExceptionFault" +
-            "", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        Client.ClientsCommunicationService.ServerClient Connect(System.Net.IPEndPoint IPAddress, string nickName);
+        Client.ClientsCommunicationService.OperationResultOfServerClienta_PaS5gWf Connect(System.Net.IPEndPoint IPAddress, string nickName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/Connect", ReplyAction="http://tempuri.org/IClientsCommunicationService/ConnectResponse")]
-        System.Threading.Tasks.Task<Client.ClientsCommunicationService.ServerClient> ConnectAsync(System.Net.IPEndPoint IPAddress, string nickName);
+        System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfServerClienta_PaS5gWf> ConnectAsync(System.Net.IPEndPoint IPAddress, string nickName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress", ReplyAction="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressArgumentNull" +
-            "ExceptionFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void UpdateClientIPAddress(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> UpdateClientIPAddress(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress", ReplyAction="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressResponse")]
-        System.Threading.Tasks.Task UpdateClientIPAddressAsync(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> UpdateClientIPAddressAsync(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/ChangeNickName", ReplyAction="http://tempuri.org/IClientsCommunicationService/ChangeNickNameResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/ChangeNickNameArgumentNullExcepti" +
-            "onFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void ChangeNickName(Client.ClientsCommunicationService.ServerClient serverClient, string nickName);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> ChangeNickName(Client.ClientsCommunicationService.ServerClient serverClient, string nickName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/ChangeNickName", ReplyAction="http://tempuri.org/IClientsCommunicationService/ChangeNickNameResponse")]
-        System.Threading.Tasks.Task ChangeNickNameAsync(Client.ClientsCommunicationService.ServerClient serverClient, string nickName);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> ChangeNickNameAsync(Client.ClientsCommunicationService.ServerClient serverClient, string nickName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/Disconnect", ReplyAction="http://tempuri.org/IClientsCommunicationService/DisconnectResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/DisconnectArgumentNullExceptionFa" +
-            "ult", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void Disconnect(Client.ClientsCommunicationService.ServerClient serverClient);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> Disconnect(Client.ClientsCommunicationService.ServerClient serverClient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/Disconnect", ReplyAction="http://tempuri.org/IClientsCommunicationService/DisconnectResponse")]
-        System.Threading.Tasks.Task DisconnectAsync(Client.ClientsCommunicationService.ServerClient serverClient);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DisconnectAsync(Client.ClientsCommunicationService.ServerClient serverClient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/CreateSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/CreateSessionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/CreateSessionArgumentNullExceptio" +
-            "nFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Client.ClientsCommunicationService.SessionWithSuchNameExistsException), Action="http://tempuri.org/IClientsCommunicationService/CreateSessionSessionWithSuchNameE" +
-            "xistsExceptionFault", Name="SessionWithSuchNameExistsException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-        Client.ClientsCommunicationService.Session CreateSession(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword);
+        Client.ClientsCommunicationService.OperationResultOfSessiona_PaS5gWf CreateSession(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/CreateSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/CreateSessionResponse")]
-        System.Threading.Tasks.Task<Client.ClientsCommunicationService.Session> CreateSessionAsync(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword);
+        System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfSessiona_PaS5gWf> CreateSessionAsync(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/RenameSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/RenameSessionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/RenameSessionArgumentNullExceptio" +
-            "nFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void RenameSession(Client.ClientsCommunicationService.Session session, string newName);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> RenameSession(Client.ClientsCommunicationService.Session session, string newName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/RenameSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/RenameSessionResponse")]
-        System.Threading.Tasks.Task RenameSessionAsync(Client.ClientsCommunicationService.Session session, string newName);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> RenameSessionAsync(Client.ClientsCommunicationService.Session session, string newName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword", ReplyAction="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordArgumentNull" +
-            "ExceptionFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void ChangeSessionPassword(Client.ClientsCommunicationService.Session session, string newPassword);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> ChangeSessionPassword(Client.ClientsCommunicationService.Session session, string newPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword", ReplyAction="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordResponse")]
-        System.Threading.Tasks.Task ChangeSessionPasswordAsync(Client.ClientsCommunicationService.Session session, string newPassword);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> ChangeSessionPasswordAsync(Client.ClientsCommunicationService.Session session, string newPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/GetSessionsList", ReplyAction="http://tempuri.org/IClientsCommunicationService/GetSessionsListResponse")]
-        Client.ClientsCommunicationService.Session[] GetSessionsList();
+        Client.ClientsCommunicationService.OperationResultOfArrayOfSessiona_PaS5gWf GetSessionsList();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/GetSessionsList", ReplyAction="http://tempuri.org/IClientsCommunicationService/GetSessionsListResponse")]
-        System.Threading.Tasks.Task<Client.ClientsCommunicationService.Session[]> GetSessionsListAsync();
+        System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfArrayOfSessiona_PaS5gWf> GetSessionsListAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/DeleteSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/DeleteSessionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/DeleteSessionArgumentNullExceptio" +
-            "nFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void DeleteSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> DeleteSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/DeleteSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/DeleteSessionResponse")]
-        System.Threading.Tasks.Task DeleteSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DeleteSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionArgumentNull" +
-            "ExceptionFault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void DisconnectFromSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> DisconnectFromSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionResponse")]
-        System.Threading.Tasks.Task DisconnectFromSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DisconnectFromSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/JoinSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/JoinSessionResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Client.ClientsCommunicationService.SessionPasswordIsWrongException), Action="http://tempuri.org/IClientsCommunicationService/JoinSessionSessionPasswordIsWrong" +
-            "ExceptionFault", Name="SessionPasswordIsWrongException", Namespace="http://schemas.datacontract.org/2004/07/WCF_Service")]
-        [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentNullException), Action="http://tempuri.org/IClientsCommunicationService/JoinSessionArgumentNullExceptionF" +
-            "ault", Name="ArgumentNullException", Namespace="http://schemas.datacontract.org/2004/07/System")]
-        void JoinSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword);
+        System.Nullable<Client.ClientsCommunicationService.ServerFault> JoinSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClientsCommunicationService/JoinSession", ReplyAction="http://tempuri.org/IClientsCommunicationService/JoinSessionResponse")]
-        System.Threading.Tasks.Task JoinSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword);
+        System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> JoinSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -466,91 +561,91 @@ namespace Client.ClientsCommunicationService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public Client.ClientsCommunicationService.ServerClient Connect(System.Net.IPEndPoint IPAddress, string nickName) {
+        public Client.ClientsCommunicationService.OperationResultOfServerClienta_PaS5gWf Connect(System.Net.IPEndPoint IPAddress, string nickName) {
             return base.Channel.Connect(IPAddress, nickName);
         }
         
-        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.ServerClient> ConnectAsync(System.Net.IPEndPoint IPAddress, string nickName) {
+        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfServerClienta_PaS5gWf> ConnectAsync(System.Net.IPEndPoint IPAddress, string nickName) {
             return base.Channel.ConnectAsync(IPAddress, nickName);
         }
         
-        public void UpdateClientIPAddress(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress) {
-            base.Channel.UpdateClientIPAddress(serverClient, newIPAddress);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> UpdateClientIPAddress(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress) {
+            return base.Channel.UpdateClientIPAddress(serverClient, newIPAddress);
         }
         
-        public System.Threading.Tasks.Task UpdateClientIPAddressAsync(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> UpdateClientIPAddressAsync(Client.ClientsCommunicationService.ServerClient serverClient, System.Net.IPEndPoint newIPAddress) {
             return base.Channel.UpdateClientIPAddressAsync(serverClient, newIPAddress);
         }
         
-        public void ChangeNickName(Client.ClientsCommunicationService.ServerClient serverClient, string nickName) {
-            base.Channel.ChangeNickName(serverClient, nickName);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> ChangeNickName(Client.ClientsCommunicationService.ServerClient serverClient, string nickName) {
+            return base.Channel.ChangeNickName(serverClient, nickName);
         }
         
-        public System.Threading.Tasks.Task ChangeNickNameAsync(Client.ClientsCommunicationService.ServerClient serverClient, string nickName) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> ChangeNickNameAsync(Client.ClientsCommunicationService.ServerClient serverClient, string nickName) {
             return base.Channel.ChangeNickNameAsync(serverClient, nickName);
         }
         
-        public void Disconnect(Client.ClientsCommunicationService.ServerClient serverClient) {
-            base.Channel.Disconnect(serverClient);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> Disconnect(Client.ClientsCommunicationService.ServerClient serverClient) {
+            return base.Channel.Disconnect(serverClient);
         }
         
-        public System.Threading.Tasks.Task DisconnectAsync(Client.ClientsCommunicationService.ServerClient serverClient) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DisconnectAsync(Client.ClientsCommunicationService.ServerClient serverClient) {
             return base.Channel.DisconnectAsync(serverClient);
         }
         
-        public Client.ClientsCommunicationService.Session CreateSession(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword) {
+        public Client.ClientsCommunicationService.OperationResultOfSessiona_PaS5gWf CreateSession(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword) {
             return base.Channel.CreateSession(serverClient, sessionName, sessionPassword);
         }
         
-        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.Session> CreateSessionAsync(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword) {
+        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfSessiona_PaS5gWf> CreateSessionAsync(Client.ClientsCommunicationService.ServerClient serverClient, string sessionName, string sessionPassword) {
             return base.Channel.CreateSessionAsync(serverClient, sessionName, sessionPassword);
         }
         
-        public void RenameSession(Client.ClientsCommunicationService.Session session, string newName) {
-            base.Channel.RenameSession(session, newName);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> RenameSession(Client.ClientsCommunicationService.Session session, string newName) {
+            return base.Channel.RenameSession(session, newName);
         }
         
-        public System.Threading.Tasks.Task RenameSessionAsync(Client.ClientsCommunicationService.Session session, string newName) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> RenameSessionAsync(Client.ClientsCommunicationService.Session session, string newName) {
             return base.Channel.RenameSessionAsync(session, newName);
         }
         
-        public void ChangeSessionPassword(Client.ClientsCommunicationService.Session session, string newPassword) {
-            base.Channel.ChangeSessionPassword(session, newPassword);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> ChangeSessionPassword(Client.ClientsCommunicationService.Session session, string newPassword) {
+            return base.Channel.ChangeSessionPassword(session, newPassword);
         }
         
-        public System.Threading.Tasks.Task ChangeSessionPasswordAsync(Client.ClientsCommunicationService.Session session, string newPassword) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> ChangeSessionPasswordAsync(Client.ClientsCommunicationService.Session session, string newPassword) {
             return base.Channel.ChangeSessionPasswordAsync(session, newPassword);
         }
         
-        public Client.ClientsCommunicationService.Session[] GetSessionsList() {
+        public Client.ClientsCommunicationService.OperationResultOfArrayOfSessiona_PaS5gWf GetSessionsList() {
             return base.Channel.GetSessionsList();
         }
         
-        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.Session[]> GetSessionsListAsync() {
+        public System.Threading.Tasks.Task<Client.ClientsCommunicationService.OperationResultOfArrayOfSessiona_PaS5gWf> GetSessionsListAsync() {
             return base.Channel.GetSessionsListAsync();
         }
         
-        public void DeleteSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause) {
-            base.Channel.DeleteSession(session, deletionCause);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> DeleteSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause) {
+            return base.Channel.DeleteSession(session, deletionCause);
         }
         
-        public System.Threading.Tasks.Task DeleteSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DeleteSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.SessionDeletionCause deletionCause) {
             return base.Channel.DeleteSessionAsync(session, deletionCause);
         }
         
-        public void DisconnectFromSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient) {
-            base.Channel.DisconnectFromSession(session, serverClient);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> DisconnectFromSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient) {
+            return base.Channel.DisconnectFromSession(session, serverClient);
         }
         
-        public System.Threading.Tasks.Task DisconnectFromSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> DisconnectFromSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient) {
             return base.Channel.DisconnectFromSessionAsync(session, serverClient);
         }
         
-        public void JoinSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword) {
-            base.Channel.JoinSession(session, serverClient, sessionPassword);
+        public System.Nullable<Client.ClientsCommunicationService.ServerFault> JoinSession(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword) {
+            return base.Channel.JoinSession(session, serverClient, sessionPassword);
         }
         
-        public System.Threading.Tasks.Task JoinSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword) {
+        public System.Threading.Tasks.Task<System.Nullable<Client.ClientsCommunicationService.ServerFault>> JoinSessionAsync(Client.ClientsCommunicationService.Session session, Client.ClientsCommunicationService.ServerClient serverClient, string sessionPassword) {
             return base.Channel.JoinSessionAsync(session, serverClient, sessionPassword);
         }
     }

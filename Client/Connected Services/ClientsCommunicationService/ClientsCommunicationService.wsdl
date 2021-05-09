@@ -32,12 +32,11 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
-      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net.Sockets" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IClientsCommunicationService_Connect_InputMessage">
@@ -46,23 +45,11 @@
   <wsdl:message name="IClientsCommunicationService_Connect_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConnectResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_Connect_ClientWithSuchNickNameExistsExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/WCF_Service" name="detail" element="q1:ClientWithSuchNickNameExistsException" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_Connect_ClientWithSuchIPAddressExistsExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/WCF_Service" name="detail" element="q2:ClientWithSuchIPAddressExistsException" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_Connect_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/System" name="detail" element="q3:ArgumentNullException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_UpdateClientIPAddress_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateClientIPAddress" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_UpdateClientIPAddress_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateClientIPAddressResponse" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_UpdateClientIPAddress_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/System" name="detail" element="q4:ArgumentNullException" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_ChangeNickName_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangeNickName" />
@@ -70,17 +57,11 @@
   <wsdl:message name="IClientsCommunicationService_ChangeNickName_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeNickNameResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_ChangeNickName_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/System" name="detail" element="q5:ArgumentNullException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_Disconnect_InputMessage">
     <wsdl:part name="parameters" element="tns:Disconnect" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_Disconnect_OutputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectResponse" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_Disconnect_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/System" name="detail" element="q6:ArgumentNullException" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_CreateSession_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateSession" />
@@ -88,29 +69,17 @@
   <wsdl:message name="IClientsCommunicationService_CreateSession_OutputMessage">
     <wsdl:part name="parameters" element="tns:CreateSessionResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_CreateSession_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/System" name="detail" element="q7:ArgumentNullException" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_CreateSession_SessionWithSuchNameExistsExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/WCF_Service" name="detail" element="q8:SessionWithSuchNameExistsException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_RenameSession_InputMessage">
     <wsdl:part name="parameters" element="tns:RenameSession" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_RenameSession_OutputMessage">
     <wsdl:part name="parameters" element="tns:RenameSessionResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_RenameSession_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/System" name="detail" element="q9:ArgumentNullException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_ChangeSessionPassword_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangeSessionPassword" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_ChangeSessionPassword_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeSessionPasswordResponse" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_ChangeSessionPassword_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/System" name="detail" element="q10:ArgumentNullException" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_GetSessionsList_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSessionsList" />
@@ -124,29 +93,17 @@
   <wsdl:message name="IClientsCommunicationService_DeleteSession_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteSessionResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_DeleteSession_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/System" name="detail" element="q11:ArgumentNullException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_DisconnectFromSession_InputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectFromSession" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_DisconnectFromSession_OutputMessage">
     <wsdl:part name="parameters" element="tns:DisconnectFromSessionResponse" />
   </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_DisconnectFromSession_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/System" name="detail" element="q12:ArgumentNullException" />
-  </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_JoinSession_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinSession" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_JoinSession_OutputMessage">
     <wsdl:part name="parameters" element="tns:JoinSessionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_JoinSession_SessionPasswordIsWrongExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_Service" name="detail" element="q13:SessionPasswordIsWrongException" />
-  </wsdl:message>
-  <wsdl:message name="IClientsCommunicationService_JoinSession_ArgumentNullExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/System" name="detail" element="q14:ArgumentNullException" />
   </wsdl:message>
   <wsdl:message name="IClientsCommunicationService_NewSessionCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NewSessionCreated" />
@@ -206,40 +163,30 @@
     <wsdl:operation name="Connect">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/Connect" message="tns:IClientsCommunicationService_Connect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ConnectResponse" message="tns:IClientsCommunicationService_Connect_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/ConnectClientWithSuchNickNameExistsExceptionFault" name="ClientWithSuchNickNameExistsExceptionFault" message="tns:IClientsCommunicationService_Connect_ClientWithSuchNickNameExistsExceptionFault_FaultMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/ConnectClientWithSuchIPAddressExistsExceptionFault" name="ClientWithSuchIPAddressExistsExceptionFault" message="tns:IClientsCommunicationService_Connect_ClientWithSuchIPAddressExistsExceptionFault_FaultMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/ConnectArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_Connect_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateClientIPAddress">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress" message="tns:IClientsCommunicationService_UpdateClientIPAddress_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressResponse" message="tns:IClientsCommunicationService_UpdateClientIPAddress_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_UpdateClientIPAddress_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ChangeNickName">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeNickName" message="tns:IClientsCommunicationService_ChangeNickName_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeNickNameResponse" message="tns:IClientsCommunicationService_ChangeNickName_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeNickNameArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_ChangeNickName_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="Disconnect">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/Disconnect" message="tns:IClientsCommunicationService_Disconnect_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectResponse" message="tns:IClientsCommunicationService_Disconnect_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_Disconnect_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="CreateSession">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSession" message="tns:IClientsCommunicationService_CreateSession_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSessionResponse" message="tns:IClientsCommunicationService_CreateSession_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSessionArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_CreateSession_ArgumentNullExceptionFault_FaultMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSessionSessionWithSuchNameExistsExceptionFault" name="SessionWithSuchNameExistsExceptionFault" message="tns:IClientsCommunicationService_CreateSession_SessionWithSuchNameExistsExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="RenameSession">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/RenameSession" message="tns:IClientsCommunicationService_RenameSession_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/RenameSessionResponse" message="tns:IClientsCommunicationService_RenameSession_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/RenameSessionArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_RenameSession_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ChangeSessionPassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword" message="tns:IClientsCommunicationService_ChangeSessionPassword_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordResponse" message="tns:IClientsCommunicationService_ChangeSessionPassword_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_ChangeSessionPassword_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetSessionsList">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/GetSessionsList" message="tns:IClientsCommunicationService_GetSessionsList_InputMessage" />
@@ -248,18 +195,14 @@
     <wsdl:operation name="DeleteSession">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/DeleteSession" message="tns:IClientsCommunicationService_DeleteSession_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DeleteSessionResponse" message="tns:IClientsCommunicationService_DeleteSession_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/DeleteSessionArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_DeleteSession_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="DisconnectFromSession">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession" message="tns:IClientsCommunicationService_DisconnectFromSession_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionResponse" message="tns:IClientsCommunicationService_DisconnectFromSession_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_DisconnectFromSession_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="JoinSession">
       <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSession" message="tns:IClientsCommunicationService_JoinSession_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSessionResponse" message="tns:IClientsCommunicationService_JoinSession_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSessionSessionPasswordIsWrongExceptionFault" name="SessionPasswordIsWrongExceptionFault" message="tns:IClientsCommunicationService_JoinSession_SessionPasswordIsWrongExceptionFault_FaultMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSessionArgumentNullExceptionFault" name="ArgumentNullExceptionFault" message="tns:IClientsCommunicationService_JoinSession_ArgumentNullExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="NewSessionCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/NewSessionCreated" message="tns:IClientsCommunicationService_NewSessionCreated_OutputCallbackMessage" />
@@ -309,15 +252,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ClientWithSuchNickNameExistsExceptionFault">
-        <soap12:fault use="literal" name="ClientWithSuchNickNameExistsExceptionFault" namespace="" />
-      </wsdl:fault>
-      <wsdl:fault name="ClientWithSuchIPAddressExistsExceptionFault">
-        <soap12:fault use="literal" name="ClientWithSuchIPAddressExistsExceptionFault" namespace="" />
-      </wsdl:fault>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="UpdateClientIPAddress">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress" style="document" />
@@ -327,9 +261,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ChangeNickName">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ChangeNickName" style="document" />
@@ -339,9 +270,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="Disconnect">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/Disconnect" style="document" />
@@ -351,9 +279,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="CreateSession">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/CreateSession" style="document" />
@@ -363,12 +288,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
-      <wsdl:fault name="SessionWithSuchNameExistsExceptionFault">
-        <soap12:fault use="literal" name="SessionWithSuchNameExistsExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="RenameSession">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/RenameSession" style="document" />
@@ -378,9 +297,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ChangeSessionPassword">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword" style="document" />
@@ -390,9 +306,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetSessionsList">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/GetSessionsList" style="document" />
@@ -411,9 +324,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="DisconnectFromSession">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession" style="document" />
@@ -423,9 +333,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="JoinSession">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/JoinSession" style="document" />
@@ -435,12 +342,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="SessionPasswordIsWrongExceptionFault">
-        <soap12:fault use="literal" name="SessionPasswordIsWrongExceptionFault" namespace="" />
-      </wsdl:fault>
-      <wsdl:fault name="ArgumentNullExceptionFault">
-        <soap12:fault use="literal" name="ArgumentNullExceptionFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="NewSessionCreated">
       <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/NewSessionCreated" style="document" />

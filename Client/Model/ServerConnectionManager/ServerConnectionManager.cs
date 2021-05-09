@@ -20,25 +20,18 @@ namespace Client.Model.ServerConnectionManager
             server = new ClientsCommunicationServiceClient(new InstanceContext(new ClientCallback()));
         }
 
-        public bool TryConnect (IPEndPoint adress, string username)
+        public bool TryConnect(IPEndPoint adress, string username)
         {
-            try
+            var connectionResult = server.Connect(adress, username);
+
+            switch (connectionResult.ServerFault)
             {
-                serverClient = server.Connect(adress, username);
+                case null:
+                    return true;
+
+                default:
+                    return false;
             }
-            catch (FaultException<ClientWithSuchNickNameExistsException> ex)
-            {
-                return false;
-            }
-            catch(FaultException<ClientWithSuchIPAddressExistsException> ex)
-            {
-                return false;
-            }
-            catch
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

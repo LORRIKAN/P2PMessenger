@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientsCommunicationService.cs" />
-    <Compile Include="Exceptions.cs" />
+    <Compile Include="ServerFault.cs" />
     <Compile Include="IClientsCommunicationService.cs" />
     <Compile Include="OperationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

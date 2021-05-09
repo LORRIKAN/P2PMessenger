@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF_Service" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF_Service" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+  <xs:complexType name="OperationResultOfServerClienta_PaS5gWf">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperationResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ServerClient" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ServerClient" />
+      <xs:element minOccurs="0" name="ServerFault" nillable="true" type="tns:ServerFault" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OperationResultOfServerClienta_PaS5gWf" nillable="true" type="tns:OperationResultOfServerClienta_PaS5gWf" />
   <xs:complexType name="ServerClient">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="IPAddress" nillable="true" type="q1:IPEndPoint" />
@@ -30,48 +46,50 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfServerClient" nillable="true" type="tns:ArrayOfServerClient" />
-  <xs:complexType name="ClientWithSuchNickNameExistsException">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ServerException">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="ClientWithSuchNickNameExistsException" nillable="true" type="tns:ClientWithSuchNickNameExistsException" />
-  <xs:complexType name="ServerException">
+  <xs:simpleType name="ServerFault">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ArgumentNull_Exception" />
+      <xs:enumeration value="ServerClient_NicknameOccupied_Exception" />
+      <xs:enumeration value="ServerClient_IPAddressOccupied_Exception" />
+      <xs:enumeration value="Session_NameOccupied_Exception" />
+      <xs:enumeration value="WrongPassword_Exception" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ServerFault" nillable="true" type="tns:ServerFault" />
+  <xs:complexType name="OperationResultOfSessiona_PaS5gWf">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperationResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="Session" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:Session" />
+      <xs:element minOccurs="0" name="ServerFault" nillable="true" type="tns:ServerFault" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ServerException" nillable="true" type="tns:ServerException" />
-  <xs:complexType name="ClientWithSuchIPAddressExistsException">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ServerException">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
+  <xs:element name="OperationResultOfSessiona_PaS5gWf" nillable="true" type="tns:OperationResultOfSessiona_PaS5gWf" />
+  <xs:complexType name="OperationResultOfArrayOfSessiona_PaS5gWf">
+    <xs:annotation>
+      <xs:appinfo>
+        <GenericType Name="OperationResultOf{0}{#}" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" xmlns="http://schemas.microsoft.com/2003/10/Serialization/">
+          <GenericParameter Name="ArrayOfSession" Namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
+        </GenericType>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Result" nillable="true" type="tns:ArrayOfSession" />
+      <xs:element minOccurs="0" name="ServerFault" nillable="true" type="tns:ServerFault" />
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="ClientWithSuchIPAddressExistsException" nillable="true" type="tns:ClientWithSuchIPAddressExistsException" />
-  <xs:complexType name="SessionWithSuchNameExistsException">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ServerException">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="SessionWithSuchNameExistsException" nillable="true" type="tns:SessionWithSuchNameExistsException" />
+  <xs:element name="OperationResultOfArrayOfSessiona_PaS5gWf" nillable="true" type="tns:OperationResultOfArrayOfSessiona_PaS5gWf" />
   <xs:complexType name="SessionDeletionCause">
     <xs:sequence>
       <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SessionDeletionCause" nillable="true" type="tns:SessionDeletionCause" />
-  <xs:complexType name="SessionPasswordIsWrongException">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:ServerException">
-        <xs:sequence />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="SessionPasswordIsWrongException" nillable="true" type="tns:SessionPasswordIsWrongException" />
 </xs:schema>

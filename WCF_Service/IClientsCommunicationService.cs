@@ -8,39 +8,57 @@ namespace WCF_Service
     [ServiceContract(CallbackContract = typeof(IClientCallback))]
     public interface IClientsCommunicationService
     {
+        /// <summary>
+        /// Исключения: 
+        /// ArgumentNull_Exception, 
+        /// ServerClient_NicknameOccupied_Exception, 
+        /// ServerClient_IPAddressOccupied_Exception.
+        /// </summary>
+        /// <param name="IPAddress"></param>
+        /// <param name="nickName"></param>
+        /// <returns></returns>
         [OperationContract]
         OperationResult<ServerClient> Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
-        ServerFault UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
+        ServerFault? UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
-        ServerFault ChangeNickName(ServerClient serverClient, string nickName);
+        ServerFault? ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
-        ServerFault Disconnect(ServerClient serverClient);
+        ServerFault? Disconnect(ServerClient serverClient);
 
+        /// <summary>
+        /// Исключения:
+        /// ArgumentNull_Exception,
+        /// Session_NameOccupied_Exception.
+        /// </summary>
+        /// <param name="serverClient"></param>
+        /// <param name="sessionName"></param>
+        /// <param name="sessionPassword"></param>
+        /// <returns></returns>
         [OperationContract]
         OperationResult<Session> CreateSession(ServerClient serverClient, string sessionName,
             string sessionPassword = null);
 
         [OperationContract]
-        ServerFault RenameSession(Session session, string newName);
+        ServerFault? RenameSession(Session session, string newName);
 
         [OperationContract]
-        ServerFault ChangeSessionPassword(Session session, string newPassword);
+        ServerFault? ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
         OperationResult<IEnumerable<Session>> GetSessionsList();
 
         [OperationContract]
-        ServerFault DeleteSession(Session session, SessionDeletionCause deletionCause);
+        ServerFault? DeleteSession(Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
-        ServerFault DisconnectFromSession(Session session, ServerClient serverClient);
+        ServerFault? DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
-        ServerFault JoinSession(Session session, ServerClient serverClient, string sessionPassword);
+        ServerFault? JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback
