@@ -26,6 +26,10 @@ namespace Client.Model.ServerConnectionManager
             {
                 serverClient = server.Connect(adress, username);
             }
+            catch (FaultException<ClientWithSuchNickNameExistsException> ex)
+            {
+                return false;
+            }
             catch(FaultException<ClientWithSuchIPAddressExistsException> ex)
             {
                 return false;

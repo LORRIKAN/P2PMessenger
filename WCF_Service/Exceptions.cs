@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace WCF_Service
 {
     [DataContract]
-    public class ServerException
+    public class ServerFault
     {
         [DataMember]
         public string Message { get; }
 
-        public ServerException(string message)
+        public ServerFault(string message)
         {
             Message = message;
         }
     }
 
     [DataContract]
-    [KnownType(typeof(ServerException))]
-    public class ClientWithSuchIPAddressExistsException : ServerException
+    [KnownType(typeof(ServerFault))]
+    public class ClientWithSuchIPAddressExistsException : ServerFault
     {
         public ClientWithSuchIPAddressExistsException(string message) : base(message)
         {
@@ -29,8 +24,8 @@ namespace WCF_Service
     }
 
     [DataContract]
-    [KnownType(typeof(ServerException))]
-    public class ClientWithSuchNickNameExistsException : ServerException
+    [KnownType(typeof(ServerFault))]
+    public class ClientWithSuchNickNameExistsException : ServerFault
     {
         public ClientWithSuchNickNameExistsException(string message) : base(message)
         {
@@ -38,8 +33,8 @@ namespace WCF_Service
     }
 
     [DataContract]
-    [KnownType(typeof(ServerException))]
-    public class SessionWithSuchNameExistsException : ServerException
+    [KnownType(typeof(ServerFault))]
+    public class SessionWithSuchNameExistsException : ServerFault
     {
         public SessionWithSuchNameExistsException(string message) : base(message)
         {
@@ -47,11 +42,21 @@ namespace WCF_Service
     }
 
     [DataContract]
-    [KnownType(typeof(ServerException))]
-    public class SessionPasswordIsWrongException : ServerException 
+    [KnownType(typeof(ServerFault))]
+    public class SessionPasswordIsWrongException : ServerFault
     {
         public SessionPasswordIsWrongException(string message) : base(message)
         {
+        }
+    }
+
+    [DataContract]
+    [KnownType(typeof(ServerFault))]
+    public class ArgumentNullException : ServerFault
+    {
+        public ArgumentNullException(string message) : base(message)
+        {
+
         }
     }
 }

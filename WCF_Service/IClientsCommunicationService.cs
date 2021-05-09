@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace WCF_Service
 {
@@ -12,51 +9,38 @@ namespace WCF_Service
     public interface IClientsCommunicationService
     {
         [OperationContract]
-        [FaultContract(typeof(ClientWithSuchNickNameExistsException))]
-        [FaultContract(typeof(ClientWithSuchIPAddressExistsException))]
-        [FaultContract(typeof(ArgumentNullException))]
-        ServerClient Connect(IPEndPoint IPAddress, string nickName);
+        OperationResult<ServerClient> Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
+        ServerFault UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void ChangeNickName(ServerClient serverClient, string nickName);
+        ServerFault ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void Disconnect(ServerClient serverClient);
+        ServerFault Disconnect(ServerClient serverClient);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        [FaultContract(typeof(SessionWithSuchNameExistsException))]
-        Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null);
+        OperationResult<Session> CreateSession(ServerClient serverClient, string sessionName,
+            string sessionPassword = null);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void RenameSession(Session session, string newName);
+        ServerFault RenameSession(Session session, string newName);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void ChangeSessionPassword(Session session, string newPassword);
+        ServerFault ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
-        IEnumerable<Session> GetSessionsList();
+        OperationResult<IEnumerable<Session>> GetSessionsList();
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void DeleteSession(Session session, SessionDeletionCause deletionCause);
+        ServerFault DeleteSession(Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
-        [FaultContract(typeof(ArgumentNullException))]
-        void DisconnectFromSession(Session session, ServerClient serverClient);
+        ServerFault DisconnectFromSession(Session session, ServerClient serverClient);
 
         [OperationContract]
-        [FaultContract(typeof(SessionPasswordIsWrongException))]
-        [FaultContract(typeof(ArgumentNullException))]
-        void JoinSession(Session session, ServerClient serverClient, string sessionPassword);
+        ServerFault JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback

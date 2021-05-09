@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Collections.Concurrent;
-using System.Text;
 
 namespace WCF_Service
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
     public class ClientsCommunicationService : IClientsCommunicationService
     {
         private Dictionary<ServerClient, OperationContext> ServerClients { get; set; } = new Dictionary<ServerClient, OperationContext>();
 
         private List<Session> ServerSessions { get; set; } = new List<Session>();
 
-        public void ChangeNickName(ServerClient serverClient, string newNickName)
+        public ServerFault ChangeNickName(ServerClient serverClient, string newNickName)
         {
             try { CheckForArgumentNullException(serverClient, newNickName); }
-            catch(ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             foreach (Session session in serverClient.Sessions)
             {
@@ -31,12 +27,14 @@ namespace WCF_Service
             }
 
             serverClient.NickName = newNickName;
+
+            return null;
         }
 
-        public void ChangeSessionPassword(Session session, string newPassword)
+        public ServerFault ChangeSessionPassword(Session session, string newPassword)
         {
             try { CheckForArgumentNullException(session); }
-            catch(ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             session.SessionPassword = newPassword;
 
@@ -45,20 +43,33 @@ namespace WCF_Service
                 IClientCallback callbackChannel = ServerClients[sessionClient].GetCallbackChannel<IClientCallback>();
                 callbackChannel.SessionPasswordChanged(session);
             }
+
+            return null;
         }
 
-        public ServerClient Connect(IPEndPoint IPAddress, string nickName)
+        public OperationResult<ServerClient> Connect(IPEndPoint IPAddress, string nickName)
         {
+            var result = new OperationResult<ServerClient>();
+
             try { CheckForArgumentNullException(IPAddress, nickName); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex)
+            {
+                result.ServerFault = new ArgumentNullException(ex.Message);
+                return result;
+            }
 
             if (ServerClients.Keys.Any(sc => sc.NickName == nickName))
-                throw new FaultException<ClientWithSuchNickNameExistsException>(
-                    new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует."));
+            {
+                result.ServerFault = new ClientWithSuchNickNameExistsException("Клиент с таким именем уже существует.");
+                return result;
+            }
 
-            if (ServerClients.Keys.Any(sc => sc.IPAddress == IPAddress))
-                throw new FaultException<ClientWithSuchIPAddressExistsException>(
-                    new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует."));
+            if (ServerClients.Keys.Any(sc => sc.IPAddress.Address == IPAddress.Address
+                && sc.IPAddress.Port == IPAddress.Port))
+            {
+                result.ServerFault = new ClientWithSuchIPAddressExistsException("Клиент с таким IP-адресом уже существует.");
+                return result;
+            }
 
             var serverClient = new ServerClient
             {
@@ -68,17 +79,28 @@ namespace WCF_Service
 
             ServerClients[serverClient] = OperationContext.Current;
 
-            return serverClient;
+            result.Result = serverClient;
+
+            return result;
         }
 
-        public Session CreateSession(ServerClient serverClient, string sessionName, string sessionPassword = null)
+        public OperationResult<Session> CreateSession(ServerClient serverClient, string sessionName,
+            string sessionPassword = null)
         {
+            var result = new OperationResult<Session>();
+
             try { CheckForArgumentNullException(serverClient, sessionName); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex)
+            {
+                result.ServerFault = new ArgumentNullException(ex.Message);
+                return result;
+            }
 
             if (ServerSessions.Any(s => s.SessionName == sessionName))
-                throw new FaultException<SessionWithSuchNameExistsException>(
-                    new SessionWithSuchNameExistsException("Сессия с таким именем уже существует."));
+            {
+                result.ServerFault = new SessionWithSuchNameExistsException("Сессия с таким именем уже существует.");
+                return result;
+            }
 
             var newSession = new Session
             {
@@ -99,13 +121,15 @@ namespace WCF_Service
                 callbackChannel.NewSessionCreated(newSession);
             }
 
-            return newSession;
+            result.Result = newSession;
+
+            return result;
         }
 
-        public void DeleteSession(Session session, SessionDeletionCause deletionCause)
+        public ServerFault DeleteSession(Session session, SessionDeletionCause deletionCause)
         {
             try { CheckForArgumentNullException(session); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             foreach (ServerClient client in session.Clients)
             {
@@ -115,23 +139,27 @@ namespace WCF_Service
             }
 
             ServerSessions.Remove(session);
+
+            return null;
         }
 
-        public void Disconnect(ServerClient serverClient)
+        public ServerFault Disconnect(ServerClient serverClient)
         {
             try { CheckForArgumentNullException(serverClient); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             foreach (Session session in serverClient.Sessions)
                 DisconnectFromSession(session, serverClient);
 
             ServerClients.Remove(serverClient);
+
+            return null;
         }
 
-        public void DisconnectFromSession(Session session, ServerClient serverClient)
+        public ServerFault DisconnectFromSession(Session session, ServerClient serverClient)
         {
             try { CheckForArgumentNullException(session, serverClient); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             foreach (ServerClient client in session.Clients)
             {
@@ -142,22 +170,25 @@ namespace WCF_Service
             serverClient.SessionsInternal.Remove(session);
 
             session.ClientsInternal.Remove(serverClient);
+
+            return null;
         }
 
-        public IEnumerable<Session> GetSessionsList()
+        public OperationResult<IEnumerable<Session>> GetSessionsList()
         {
-            return ServerSessions;
+            return new OperationResult<IEnumerable<Session>>(null, ServerSessions);
         }
 
-        public void JoinSession(Session session, ServerClient serverClient, string sessionPassword)
+        public ServerFault JoinSession(Session session, ServerClient serverClient, string sessionPassword)
         {
             try { CheckForArgumentNullException(session, serverClient); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             if (session.IsPasswordRequired && sessionPassword != session.SessionPassword)
                 throw new FaultException<SessionPasswordIsWrongException>(
                     new SessionPasswordIsWrongException("Указанный пароль при попытке присоединения к " +
-                    "сессии является неверным."));
+                    "сессии является неверным."), "Указанный пароль при попытке присоединения к " +
+                    "сессии является неверным.");
 
             foreach (ServerClient client in session.Clients)
             {
@@ -168,12 +199,14 @@ namespace WCF_Service
             session.ClientsInternal.Add(serverClient);
 
             serverClient.SessionsInternal.Add(session);
+
+            return null;
         }
 
-        public void RenameSession(Session session, string newName)
+        public ServerFault RenameSession(Session session, string newName)
         {
             try { CheckForArgumentNullException(session, newName); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             foreach (ServerClient client in session.Clients)
             {
@@ -182,12 +215,14 @@ namespace WCF_Service
             }
 
             session.SessionName = newName;
+
+            return null;
         }
 
-        public void UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress)
+        public ServerFault UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress)
         {
             try { CheckForArgumentNullException(serverClient, newIPAddress); }
-            catch (ArgumentNullException ex) { throw new FaultException<ArgumentNullException>(ex); }
+            catch (System.ArgumentNullException ex) { return new ArgumentNullException(ex.Message); }
 
             if (serverClient.IPAddress != newIPAddress)
             {
@@ -202,6 +237,8 @@ namespace WCF_Service
             }
 
             serverClient.IPAddress = newIPAddress;
+
+            return null;
         }
 
         private void CheckForArgumentNullException(params object[] args)
@@ -209,14 +246,14 @@ namespace WCF_Service
             foreach (object arg in args)
             {
                 if (arg is null)
-                    throw new ArgumentNullException(arg.GetType().Name + " не может быть null");
+                    throw new System.ArgumentNullException(arg.GetType().Name + " не может быть null");
 
                 if (arg is string str)
                 {
                     if (string.IsNullOrEmpty(str))
-                        throw new ArgumentNullException(str.GetType().Name + " не может быть null или пустой");
+                        throw new System.ArgumentNullException(str.GetType().Name + " не может быть null или пустой");
                     if (string.IsNullOrWhiteSpace(str))
-                        throw new ArgumentNullException(str.GetType().Name + " не может быть null или заполненной только знаками пробела");
+                        throw new System.ArgumentNullException(str.GetType().Name + " не может быть null или заполненной только знаками пробела");
                 }
             }
         }
