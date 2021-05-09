@@ -43,5 +43,15 @@ namespace Client.Model
         {
             return stun.GetIpPort();
         }
+
+        public string[] GetListOfSessions()
+        {
+            return server.GetListOfSessions();
+        }
+
+        public bool CreateSession(string password)
+        {
+            return server.CreateSession(password);
+        }
     }
 }

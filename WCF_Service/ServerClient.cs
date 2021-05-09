@@ -15,11 +15,9 @@ namespace WCF_Service
         public string NickName { get; internal set; }
 
         [DataMember]
-        public IEnumerable<Session> Sessions { get => SessionsInternal; }
-
+        public List<Session> Sessions { get; set; } = new List<Session>();
+        
         internal ServerClient() { }
-
-        internal List<Session> SessionsInternal { get; set; } = new List<Session>();
 
         public override bool Equals(object obj)
         {

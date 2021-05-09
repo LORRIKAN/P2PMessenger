@@ -27,6 +27,8 @@ namespace Client.Presenter
             view.FormLoad += OnFormLoad;
             view.UsernameEntered += OnUsernameEntered;
             view.AdressRequested += OnAdressRequest;
+            view.ListOfSessionsRequested += OnListOfSessionsRequested;
+            view.CreateSession += OnCreateSession;
         }
 
         public bool OnFormLoad()
@@ -42,6 +44,16 @@ namespace Client.Presenter
         public IPEndPoint OnAdressRequest()
         {
             return model.GetAdress();
+        }
+
+        public string[] OnListOfSessionsRequested()
+        {
+            return model.GetListOfSessions();
+        }
+
+        public bool OnCreateSession(string password)
+        {
+            return model.CreateSession(password);
         }
     }
 }

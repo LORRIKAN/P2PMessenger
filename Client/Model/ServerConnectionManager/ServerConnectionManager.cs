@@ -14,6 +14,8 @@ namespace Client.Model.ServerConnectionManager
     {
         private ClientsCommunicationServiceClient server;
         private ServerClient serverClient;
+        private Session[] sessions;
+        private Session curSession;
 
         public ServerConnectionManager()
         {
@@ -30,6 +32,40 @@ namespace Client.Model.ServerConnectionManager
                     serverClient = connectionResult.Result;
                     return true;
 
+                default:
+                    return false;
+            }
+        }
+
+        public string[] GetListOfSessions()
+        {
+            var sessionsResult = server.GetSessionsList();
+
+            switch (sessionsResult.ServerFault)
+            {
+                case null:
+                    this.sessions = sessionsResult.Result;
+                    string[] sessionsNames = new string[sessionsResult.Result.Length];
+                    int count = 0;
+                    foreach(Session s in sessionsResult.Result)
+                    {
+                        sessionsNames[count] = s.SessionName;
+                        count++;
+                    }
+                    return sessionsNames;
+                default:
+                    return new string[] { "Ошибка при загрузке списка сессий" };
+            }
+        }
+
+        public bool CreateSession(string password)
+        {
+            var creationResult = server.CreateSession(serverClient, serverClient.NickName, password);
+            switch (creationResult.ServerFault)
+            {
+                case null:
+                    curSession = creationResult.Result;
+                    return true;
                 default:
                     return false;
             }

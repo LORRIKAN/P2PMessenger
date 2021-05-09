@@ -19,6 +19,8 @@ namespace Client.View
         public event Func<bool> FormLoad;
         public event Func<string, bool> UsernameEntered;
         public event Func<IPEndPoint> AdressRequested;
+        public event Func<string[]> ListOfSessionsRequested;
+        public event Func<string, bool> CreateSession;
 
         public MainWindow()
         {
@@ -56,6 +58,36 @@ namespace Client.View
             } while (usernameAccepted == false);
             IPEndPoint tmp = AdressRequested();
             textBox1.Text += "Соединение с сервером установлено. Вы зашли под именем: " + username + " Ваш адрес: " + AdressRequested().ToString() + Environment.NewLine;
+            GetListOfSessions();
+        }
+
+        private void GetListOfSessions()
+        {
+            string[] sessions = ListOfSessionsRequested();
+            foreach(string s in sessions)
+            {
+                listBox1.Items.Add(s);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string password;
+            password = Microsoft.VisualBasic.Interaction.InputBox("Установка пароля для сессии:");
+            if(CreateSession(password) == true)
+            {
+                listBox1.Items.Clear();
+                listBox1.Enabled = false;
+                button1.Enabled = false;
+                button2.Enabled = false;
+                textBox2.Enabled = true;
+                button3.Enabled = true;
+                textBox1.Text += "Сессия создана. Пароль: " + password + "Ожидание подключения." + Environment.NewLine; 
+            }
+            else
+            {
+                MessageBox.Show("Ошибка при создании сессии.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /*

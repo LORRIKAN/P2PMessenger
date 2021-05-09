@@ -5,7 +5,7 @@ using System.ServiceModel;
 
 namespace WCF_Service
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true, ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class ClientsCommunicationService : IClientsCommunicationService
     {
         private Dictionary<ServerClient, OperationContext> ServerClients { get; set; } = new Dictionary<ServerClient, OperationContext>();
@@ -108,11 +108,11 @@ namespace WCF_Service
                 Creator = serverClient
             };
 
-            newSession.ClientsInternal.Add(serverClient);
+            newSession.Clients.Add(serverClient);
 
             ServerSessions.Add(newSession);
 
-            serverClient.SessionsInternal.Add(newSession);
+            serverClient.Sessions.Add(newSession);
 
             foreach (ServerClient client in ServerClients.Keys)
             {
@@ -134,7 +134,7 @@ namespace WCF_Service
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
                 callbackChannel.SessionDeleted(session, deletionCause);
-                client.SessionsInternal.Remove(session);
+                client.Sessions.Remove(session);
             }
 
             ServerSessions.Remove(session);
@@ -166,9 +166,9 @@ namespace WCF_Service
                 callbackChannel.ClientLeftSession(session, serverClient);
             }
 
-            serverClient.SessionsInternal.Remove(session);
+            serverClient.Sessions.Remove(session);
 
-            session.ClientsInternal.Remove(serverClient);
+            session.Clients.Remove(serverClient);
 
             return null;
         }
@@ -194,9 +194,9 @@ namespace WCF_Service
                 callbackChannel.ClientJoinedSession(session, serverClient);
             }
 
-            session.ClientsInternal.Add(serverClient);
+            session.Clients.Add(serverClient);
 
-            serverClient.SessionsInternal.Add(session);
+            serverClient.Sessions.Add(session);
 
             return null;
         }

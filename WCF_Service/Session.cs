@@ -10,18 +10,19 @@ namespace WCF_Service
         [DataMember]
         public string SessionName { get; internal set; }
 
+        private bool isPasswordRequired;
         [DataMember]
-        public bool IsPasswordRequired => !string.IsNullOrEmpty(SessionPassword);
-
-        [DataMember]
-        public IEnumerable<ServerClient> Clients { get => ClientsInternal; }
+        public bool IsPasswordRequired { 
+            get { isPasswordRequired = !string.IsNullOrEmpty(SessionPassword); return isPasswordRequired; } 
+            set => isPasswordRequired = value; }
 
         [DataMember]
         public ServerClient Creator { get; internal set; }
 
+        [DataMember]
+        public List<ServerClient> Clients { get; set; } = new List<ServerClient>();
+        
         internal Session() { }
-
-        internal List<ServerClient> ClientsInternal { get; } = new List<ServerClient>();
 
         internal string SessionPassword { get; set; }
 
