@@ -49,9 +49,9 @@ namespace Client.Model
             return server.GetListOfSessions();
         }
 
-        public bool CreateSession(string password)
+        public async Task<bool> CreateSession(string password)
         {
-            return server.CreateSession(password);
+            return await server.CreateSession(password);
         }
     }
 }

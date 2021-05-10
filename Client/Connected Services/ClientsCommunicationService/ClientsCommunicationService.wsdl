@@ -37,6 +37,7 @@
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net.Sockets" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
+      <xsd:import schemaLocation="http://localhost:8301/?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IClientsCommunicationService_Connect_InputMessage">
@@ -431,7 +432,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8302/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-47LSN3H8\pasho</Upn>
+          <Upn>LORRIKLAPTOP\zobni</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

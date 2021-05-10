@@ -92,11 +92,17 @@
     <None Include="Connected Services\ClientsCommunicationService\Client.ClientsCommunicationService.OperationResultOfSessiona_PaS5gWf.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ClientsCommunicationService\Client.ClientsCommunicationService.OperationResultOfTupleOfSessionServerClientKM2EbN685F2dSckg.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ClientsCommunicationService\Client.ClientsCommunicationService.ServerFault.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\ClientsCommunicationService\ClientsCommunicationService.wsdl" />
     <None Include="Connected Services\ClientsCommunicationService\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ClientsCommunicationService\item1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ClientsCommunicationService\item2.xsd">

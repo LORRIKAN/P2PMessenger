@@ -51,9 +51,9 @@ namespace Client.Presenter
             return model.GetListOfSessions();
         }
 
-        public bool OnCreateSession(string password)
+        public async Task<bool> OnCreateSession(string password)
         {
-            return model.CreateSession(password);
+            return await model.CreateSession(password);
         }
     }
 }

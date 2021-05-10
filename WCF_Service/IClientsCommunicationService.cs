@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -21,10 +22,10 @@ namespace WCF_Service
         OperationResult<ServerClient> Connect(IPEndPoint IPAddress, string nickName);
 
         [OperationContract]
-        ServerFault? UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
+        OperationResult<ServerClient> UpdateClientIPAddress(ServerClient serverClient, IPEndPoint newIPAddress);
 
         [OperationContract]
-        ServerFault? ChangeNickName(ServerClient serverClient, string nickName);
+        OperationResult<ServerClient> ChangeNickName(ServerClient serverClient, string nickName);
 
         [OperationContract]
         ServerFault? Disconnect(ServerClient serverClient);
@@ -39,23 +40,23 @@ namespace WCF_Service
         /// <param name="sessionPassword"></param>
         /// <returns></returns>
         [OperationContract]
-        OperationResult<Session> CreateSession(ServerClient serverClient, string sessionName,
+        OperationResult<Tuple<Session, ServerClient>> CreateSession(ServerClient serverClient, string sessionName,
             string sessionPassword = null);
 
         [OperationContract]
-        ServerFault? RenameSession(Session session, string newName);
+        OperationResult<Session> RenameSession(Session session, string newName);
 
         [OperationContract]
-        ServerFault? ChangeSessionPassword(Session session, string newPassword);
+        OperationResult<Session> ChangeSessionPassword(Session session, string newPassword);
 
         [OperationContract]
         OperationResult<IEnumerable<Session>> GetSessionsList();
 
         [OperationContract]
-        ServerFault? DeleteSession(Session session, SessionDeletionCause deletionCause);
+        OperationResult<ServerClient> DeleteSession(ServerClient serverClient,Session session, SessionDeletionCause deletionCause);
 
         [OperationContract]
-        ServerFault? DisconnectFromSession(Session session, ServerClient serverClient);
+        OperationResult<Tuple<Session, ServerClient>> DisconnectFromSession(Session session, ServerClient serverClient);
 
         /// <summary>
         /// Исключения:
@@ -67,7 +68,7 @@ namespace WCF_Service
         /// <param name="sessionPassword"></param>
         /// <returns></returns>
         [OperationContract]
-        ServerFault? JoinSession(Session session, ServerClient serverClient, string sessionPassword);
+        OperationResult<Tuple<Session, ServerClient>> JoinSession(Session session, ServerClient serverClient, string sessionPassword);
     }
 
     public interface IClientCallback
@@ -96,7 +97,7 @@ namespace WCF_Service
             IPEndPoint clientOldIPAddress, IPEndPoint clientNewIPAddress);
 
         [OperationContract]
-        void SessionDeleted(Session session, SessionDeletionCause sessionDeletionCause);
+        void SessionDeleted(ServerClient serverClient, Session session, SessionDeletionCause sessionDeletionCause);
 
         [OperationContract]
         void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown);

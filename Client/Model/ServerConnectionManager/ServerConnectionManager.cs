@@ -58,13 +58,13 @@ namespace Client.Model.ServerConnectionManager
             }
         }
 
-        public bool CreateSession(string password)
+        public async Task<bool> CreateSession(string password)
         {
-            var creationResult = server.CreateSession(serverClient, serverClient.NickName, password);
+            var creationResult = await server.CreateSessionAsync(serverClient, serverClient.NickName, password);
             switch (creationResult.ServerFault)
             {
                 case null:
-                    curSession = creationResult.Result;
+                    curSession = creationResult.Result.Item1;
                     return true;
                 default:
                     return false;

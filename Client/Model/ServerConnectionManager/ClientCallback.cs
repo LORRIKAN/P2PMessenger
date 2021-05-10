@@ -40,7 +40,7 @@ namespace Client.Model.ServerConnectionManager
             throw new NotImplementedException();
         }
 
-        public void SessionDeleted(Session session, SessionDeletionCause sessionDeletionCause)
+        public void SessionDeleted(ServerClient serverClient, Session session, SessionDeletionCause sessionDeletionCause)
         {
             throw new NotImplementedException();
         }

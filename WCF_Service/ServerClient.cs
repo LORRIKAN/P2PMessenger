@@ -14,8 +14,7 @@ namespace WCF_Service
         [DataMember]
         public string NickName { get; internal set; }
 
-        [DataMember]
-        public List<Session> Sessions { get; set; } = new List<Session>();
+        internal List<Session> Sessions { get; set; } = new List<Session>();
         
         internal ServerClient() { }
 

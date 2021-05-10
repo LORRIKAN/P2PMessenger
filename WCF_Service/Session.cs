@@ -10,11 +10,8 @@ namespace WCF_Service
         [DataMember]
         public string SessionName { get; internal set; }
 
-        private bool isPasswordRequired;
         [DataMember]
-        public bool IsPasswordRequired { 
-            get { isPasswordRequired = !string.IsNullOrEmpty(SessionPassword); return isPasswordRequired; } 
-            set => isPasswordRequired = value; }
+        public bool IsPasswordRequired { get; set; }
 
         [DataMember]
         public ServerClient Creator { get; internal set; }

@@ -28,7 +28,7 @@
   <xs:element name="UpdateClientIPAddressResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="UpdateClientIPAddressResult" nillable="true" type="q5:ServerFault" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="UpdateClientIPAddressResult" type="q5:OperationResultOfServerClienta_PaS5gWf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -43,7 +43,7 @@
   <xs:element name="ChangeNickNameResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="ChangeNickNameResult" nillable="true" type="q7:ServerFault" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="ChangeNickNameResult" type="q7:OperationResultOfServerClienta_PaS5gWf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -73,7 +73,7 @@
   <xs:element name="CreateSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="CreateSessionResult" type="q11:OperationResultOfSessiona_PaS5gWf" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="CreateSessionResult" type="q11:OperationResultOfTupleOfSessionServerClientKM2EbN685F2dSckg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -88,7 +88,7 @@
   <xs:element name="RenameSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="RenameSessionResult" nillable="true" type="q13:ServerFault" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="RenameSessionResult" type="q13:OperationResultOfSessiona_PaS5gWf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -103,7 +103,7 @@
   <xs:element name="ChangeSessionPasswordResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="ChangeSessionPasswordResult" nillable="true" type="q15:ServerFault" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="ChangeSessionPasswordResult" type="q15:OperationResultOfSessiona_PaS5gWf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -122,38 +122,39 @@
   <xs:element name="DeleteSession">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q17:Session" />
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="deletionCause" nillable="true" type="q18:SessionDeletionCause" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q17:ServerClient" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q18:Session" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="deletionCause" nillable="true" type="q19:SessionDeletionCause" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="DeleteSessionResult" nillable="true" type="q19:ServerFault" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="DeleteSessionResult" type="q20:OperationResultOfServerClienta_PaS5gWf" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DisconnectFromSession">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q20:Session" />
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q21:ServerClient" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q21:Session" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q22:ServerClient" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DisconnectFromSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="DisconnectFromSessionResult" nillable="true" type="q22:ServerFault" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="DisconnectFromSessionResult" type="q23:OperationResultOfTupleOfSessionServerClientKM2EbN685F2dSckg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="JoinSession">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q23:Session" />
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q24:ServerClient" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q24:Session" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q25:ServerClient" />
         <xs:element minOccurs="0" name="sessionPassword" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -161,14 +162,14 @@
   <xs:element name="JoinSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="JoinSessionResult" nillable="true" type="q25:ServerFault" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="JoinSessionResult" type="q26:OperationResultOfTupleOfSessionServerClientKM2EbN685F2dSckg" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="NewSessionCreated">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="newSession" nillable="true" type="q26:Session" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="newSession" nillable="true" type="q27:Session" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -180,8 +181,8 @@
   <xs:element name="ClientJoinedSession">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q27:Session" />
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="joinedClient" nillable="true" type="q28:ServerClient" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q28:Session" />
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="joinedClient" nillable="true" type="q29:ServerClient" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -193,8 +194,8 @@
   <xs:element name="ClientLeftSession">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q29:Session" />
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="clientLeft" nillable="true" type="q30:ServerClient" />
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q30:Session" />
+        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="clientLeft" nillable="true" type="q31:ServerClient" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -206,7 +207,7 @@
   <xs:element name="SessionNameChanged">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q31:Session" />
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q32:Session" />
         <xs:element minOccurs="0" name="sessionOldName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="sessionNewName" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -220,7 +221,7 @@
   <xs:element name="SessionPasswordChanged">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q32:Session" />
+        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q33:Session" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -232,8 +233,8 @@
   <xs:element name="SessionClientNickNameChanged">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q33="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q33:Session" />
-        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q34:ServerClient" />
+        <xs:element xmlns:q34="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q34:Session" />
+        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q35:ServerClient" />
         <xs:element minOccurs="0" name="clientOldNickName" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="clientNewNickName" nillable="true" type="xs:string" />
       </xs:sequence>
@@ -247,10 +248,10 @@
   <xs:element name="SessionClientIPAddressChanged">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q35="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q35:Session" />
-        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q36:ServerClient" />
-        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="clientOldIPAddress" nillable="true" type="q37:IPEndPoint" />
-        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="clientNewIPAddress" nillable="true" type="q38:IPEndPoint" />
+        <xs:element xmlns:q36="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q36:Session" />
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q37:ServerClient" />
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="clientOldIPAddress" nillable="true" type="q38:IPEndPoint" />
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/System.Net" minOccurs="0" name="clientNewIPAddress" nillable="true" type="q39:IPEndPoint" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -262,8 +263,9 @@
   <xs:element name="SessionDeleted">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q39:Session" />
-        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="sessionDeletionCause" nillable="true" type="q40:SessionDeletionCause" />
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="serverClient" nillable="true" type="q40:ServerClient" />
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="session" nillable="true" type="q41:Session" />
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/WCF_Service" minOccurs="0" name="sessionDeletionCause" nillable="true" type="q42:SessionDeletionCause" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

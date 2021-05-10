@@ -20,7 +20,7 @@ namespace Client.View
         public event Func<string, bool> UsernameEntered;
         public event Func<IPEndPoint> AdressRequested;
         public event Func<string[]> ListOfSessionsRequested;
-        public event Func<string, bool> CreateSession;
+        public event Func<string, Task<bool>> CreateSession;
 
         public MainWindow()
         {
@@ -70,11 +70,11 @@ namespace Client.View
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             string password;
             password = Microsoft.VisualBasic.Interaction.InputBox("Установка пароля для сессии:");
-            if(CreateSession(password) == true)
+            if(await CreateSession(password) == true)
             {
                 listBox1.Items.Clear();
                 listBox1.Enabled = false;
