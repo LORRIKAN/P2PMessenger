@@ -14,17 +14,17 @@ namespace Client.Model.ServerConnectionManager
     {
         private ClientsCommunicationServiceClient server;
         private ServerClient serverClient;
-        private Session[] sessions;
+        private List<Session> sessions;
         private Session curSession;
 
-        public ServerConnectionManager()
+        public ServerConnectionManager(ClientCallback clientCallback)
         {
-            server = new ClientsCommunicationServiceClient(new InstanceContext(new ClientCallback()));
+            server = new ClientsCommunicationServiceClient(new InstanceContext(clientCallback));            
         }
 
-        public bool TryConnect(IPEndPoint adress, string username)
+        public async Task<bool> TryConnect(IPEndPoint adress, string username)
         {
-            var connectionResult = server.Connect(adress, username);
+            var connectionResult = await server.ConnectAsync(adress, username);
 
             switch (connectionResult.ServerFault)
             {
@@ -37,14 +37,14 @@ namespace Client.Model.ServerConnectionManager
             }
         }
 
-        public string[] GetListOfSessions()
+        public async Task<string[]> GetListOfSessions()
         {
-            var sessionsResult = server.GetSessionsList();
+            var sessionsResult = await server.GetSessionsListAsync();
 
             switch (sessionsResult.ServerFault)
             {
                 case null:
-                    this.sessions = sessionsResult.Result;
+                    this.sessions = sessionsResult.Result.ToList();
                     string[] sessionsNames = new string[sessionsResult.Result.Length];
                     int count = 0;
                     foreach(Session s in sessionsResult.Result)
@@ -68,6 +68,47 @@ namespace Client.Model.ServerConnectionManager
                     return true;
                 default:
                     return false;
+            }
+        }
+
+        public async Task<bool> JoinSession(string sessionName, string password)
+        {
+            Session selectedSession = (from Session s in sessions where s.SessionName == sessionName select s).Single();
+            var joinResult = await server.JoinSessionAsync(selectedSession, serverClient, password);
+            switch (joinResult.ServerFault)
+            {
+                case null:
+                    curSession = selectedSession;
+                    return true;
+                default:                    
+                    return false;
+            }
+        }
+
+        public IPEndPoint GetAdress()
+        {
+            if(serverClient.NickName == curSession.Creator.NickName)
+            {
+                return curSession.Clients[0].IPAddress;
+            }
+            else
+            {
+                return curSession.Creator.IPAddress;
+            }
+        }
+
+        public void AddSession(Session session)
+        {
+            sessions.Add(session);
+        }
+
+        public void ClientJoined(Session newSession)
+        {
+            curSession = newSession;
+            for(int i = 0; i < sessions.Count; i++)
+            {
+                if (sessions[i].SessionName == newSession.SessionName)
+                    sessions[i] = newSession;
             }
         }
     }

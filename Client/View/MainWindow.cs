@@ -17,10 +17,11 @@ namespace Client.View
     public partial class MainWindow : Form
     {
         public event Func<bool> FormLoad;
-        public event Func<string, bool> UsernameEntered;
+        public event Func<string, Task<bool>> UsernameEntered;
         public event Func<IPEndPoint> AdressRequested;
-        public event Func<string[]> ListOfSessionsRequested;
+        public event Func<Task<string[]>> ListOfSessionsRequested;
         public event Func<string, Task<bool>> CreateSession;
+        public event Func<string, string, Task<bool>> JoinSession;
 
         public MainWindow()
         {
@@ -45,7 +46,7 @@ namespace Client.View
             }
         }
 
-        private void EnterUsername()
+        private async void EnterUsername()
         {
             bool usernameAccepted;
             string username;
@@ -54,16 +55,16 @@ namespace Client.View
                 username = Microsoft.VisualBasic.Interaction.InputBox("Введите свое имя:");
                 if (username.Trim() == "")
                     Environment.Exit(1);
-                usernameAccepted = UsernameEntered(username);
+                usernameAccepted = await UsernameEntered(username);
             } while (usernameAccepted == false);
             IPEndPoint tmp = AdressRequested();
             textBox1.Text += "Соединение с сервером установлено. Вы зашли под именем: " + username + " Ваш адрес: " + AdressRequested().ToString() + Environment.NewLine;
             GetListOfSessions();
         }
 
-        private void GetListOfSessions()
+        private async void GetListOfSessions()
         {
-            string[] sessions = ListOfSessionsRequested();
+            string[] sessions = await ListOfSessionsRequested();
             foreach(string s in sessions)
             {
                 listBox1.Items.Add(s);
@@ -90,12 +91,43 @@ namespace Client.View
             }
         }
 
-        /*
-        public void Visualize()
+
+        public void AddSession(string sessionName)
         {
-            this.Invoke(new MethodInvoker(() => { textBox1.Text = "1"; textBox2.Text = "2";
-                }));
+            listBox1.Items.Add(sessionName);
         }
-        */
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string password;
+            password = Microsoft.VisualBasic.Interaction.InputBox("Введите пароль:");
+            if(await JoinSession(listBox1.SelectedItem.ToString(), password) == true)
+            {
+                listBox1.Items.Clear();
+                listBox1.Enabled = false;
+                button1.Enabled = false;
+                button2.Enabled = false;
+                textBox2.Enabled = true;
+                button3.Enabled = true;
+                textBox1.Text += "Вы подключились к сессии." + Environment.NewLine;
+            }
+            else
+            {
+                MessageBox.Show("Неверный пароль.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void ClientJoined(string name, string adress)
+        {
+            textBox1.Text += name + " вошел в чат. Его адресс: " + adress + Environment.NewLine;
+        }
+
+        /*
+public void Visualize()
+{
+   this.Invoke(new MethodInvoker(() => { textBox1.Text = "1"; textBox2.Text = "2";
+       }));
+}
+*/
     }
 }

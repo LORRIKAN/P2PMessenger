@@ -10,9 +10,12 @@ namespace Client.Model.ServerConnectionManager
 {
     class ClientCallback : IClientsCommunicationServiceCallback
     {
+        public event Action<Session> SessionCreated;
+        public event Action<Session, ServerClient> ClientJoined;
+
         public void ClientJoinedSession(Session session, ServerClient joinedClient)
         {
-            throw new NotImplementedException();
+            ClientJoined(session, joinedClient);
         }
 
         public void ClientLeftSession(Session session, ServerClient clientLeft)
@@ -22,7 +25,7 @@ namespace Client.Model.ServerConnectionManager
 
         public void NewSessionCreated(Session newSession)
         {
-            throw new NotImplementedException();
+            SessionCreated(newSession);
         }
 
         public void ServerShutDownNoticeReceive(long millisecondsBeforeShutDown)

@@ -10,6 +10,7 @@ namespace Client.Model.p2pConnectionManager
 {
     class p2pConnectionManager
     {
+        private IPEndPoint connectionAdress;
         public bool StopReceiving;
         UdpClient client = new UdpClient();
         event Action<string> MessageReceive;
@@ -26,6 +27,11 @@ namespace Client.Model.p2pConnectionManager
                     }
                 }
             });
+        }
+
+        public void SetConnectionAdress(IPEndPoint address)
+        {
+            connectionAdress = address;
         }
     }
 }
