@@ -150,6 +150,8 @@ namespace Client.View
             if (textBox2.Text.Trim() == "")
                 return;
             string message = myName + ": " + textBox2.Text;
+            textBox2.Text = "";
+            textBox1.Text += message;
             MessageSent(message);
         }
 
