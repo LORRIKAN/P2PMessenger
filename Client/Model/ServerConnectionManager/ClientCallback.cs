@@ -20,7 +20,7 @@ namespace Client.Model.ServerConnectionManager
 
         public void ClientLeftSession(Session session, ServerClient clientLeft)
         {
-            throw new NotImplementedException();
+            return;
         }
 
         public void NewSessionCreated(Session newSession)

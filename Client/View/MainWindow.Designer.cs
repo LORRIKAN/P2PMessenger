@@ -115,6 +115,7 @@ namespace Client.View
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(879, 131);
             this.textBox2.TabIndex = 1;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // button3
             // 
@@ -147,6 +148,7 @@ namespace Client.View
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(1082, 700);
             this.textBox1.TabIndex = 3;
             // 

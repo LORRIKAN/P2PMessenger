@@ -148,17 +148,30 @@ namespace Client.View
 
         private void button3_Click(object sender, EventArgs e)
         {
+            SendMessage();
+        }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ChatClosed();
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)13 && button3.Enabled == true)
+            {
+                SendMessage();
+            }
+        }
+
+        private void SendMessage()
+        {
             if (textBox2.Text.Trim() == "")
                 return;
             string message = myName + ": " + textBox2.Text;
             textBox2.Text = "";
             textBox1.Text += message + Environment.NewLine;
             MessageSent(message);
-        }
-
-        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            ChatClosed();
         }
 
         /*
