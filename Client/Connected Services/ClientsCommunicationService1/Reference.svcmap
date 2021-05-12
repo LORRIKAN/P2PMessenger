@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="790bbcbf-af11-4737-808f-cbd41bc6a1ac" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://gorelovopc.ddns.net:8301" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="9852ec97-6e68-40bf-98a1-afcb926bbde8" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd5" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="00d7282c-3f13-42d3-991a-3f393f2212d0" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="3898ecb3-15b7-472a-8232-ab71186a7d0a" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd3" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="04770104-355d-42dd-9212-5c9181efa2cf" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd0" />
+    <MetadataFile FileName="item4.xsd" MetadataType="Schema" ID="497e363d-f2f3-4fc5-b5b8-a3ce3357f9e8" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd1" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="11a79a00-67be-4972-b839-63fb9b16e07e" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?disco" />
+    <MetadataFile FileName="item5.xsd" MetadataType="Schema" ID="9009d947-4b39-4330-809e-caa3da81277a" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd6" />
+    <MetadataFile FileName="ClientsCommunicationService.wsdl" MetadataType="Wsdl" ID="dd93465a-2618-4c20-a7fb-1ec4059c89bf" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?wsdl" />
+    <MetadataFile FileName="item6.xsd" MetadataType="Schema" ID="28f6bc36-e1f4-4fd8-b7f0-3d20f1d28933" SourceId="1" SourceUrl="http://gorelovopc.ddns.net:8301/?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

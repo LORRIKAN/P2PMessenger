@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ClientsCommunicationService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IClientsCommunicationService_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/System.Net" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Net.Sockets" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/WCF_Service" />
+      <xsd:import schemaLocation="http://gorelovopc.ddns.net:8301/?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IClientsCommunicationService_Connect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Connect" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_Connect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_UpdateClientIPAddress_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientIPAddress" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_UpdateClientIPAddress_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientIPAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ChangeNickName_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeNickName" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ChangeNickName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeNickNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_Disconnect_InputMessage">
+    <wsdl:part name="parameters" element="tns:Disconnect" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_Disconnect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisconnectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_CreateSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_CreateSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_RenameSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_RenameSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RenameSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ChangeSessionPassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeSessionPassword" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ChangeSessionPassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangeSessionPasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_GetSessionsList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSessionsList" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_GetSessionsList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSessionsListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_DeleteSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_DeleteSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_DisconnectFromSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:DisconnectFromSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_DisconnectFromSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DisconnectFromSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_JoinSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_JoinSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:JoinSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_NewSessionCreated_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NewSessionCreated" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_NewSessionCreated_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NewSessionCreatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ClientJoinedSession_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientJoinedSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ClientJoinedSession_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientJoinedSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ClientLeftSession_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientLeftSession" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ClientLeftSession_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ClientLeftSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionNameChanged_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionNameChanged" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionNameChanged_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionNameChangedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionPasswordChanged_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionPasswordChanged" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionPasswordChanged_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionPasswordChangedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionClientNickNameChanged_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionClientNickNameChanged" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionClientNickNameChanged_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionClientNickNameChangedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionClientIPAddressChanged_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionClientIPAddressChanged" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionClientIPAddressChanged_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionClientIPAddressChangedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionDeleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionDeleted" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_SessionDeleted_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:SessionDeletedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ServerShutDownNoticeReceive_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ServerShutDownNoticeReceive" />
+  </wsdl:message>
+  <wsdl:message name="IClientsCommunicationService_ServerShutDownNoticeReceive_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ServerShutDownNoticeReceiveResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IClientsCommunicationService">
+    <wsdl:operation name="Connect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/Connect" message="tns:IClientsCommunicationService_Connect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ConnectResponse" message="tns:IClientsCommunicationService_Connect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientIPAddress">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress" message="tns:IClientsCommunicationService_UpdateClientIPAddress_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddressResponse" message="tns:IClientsCommunicationService_UpdateClientIPAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeNickName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeNickName" message="tns:IClientsCommunicationService_ChangeNickName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeNickNameResponse" message="tns:IClientsCommunicationService_ChangeNickName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/Disconnect" message="tns:IClientsCommunicationService_Disconnect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectResponse" message="tns:IClientsCommunicationService_Disconnect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSession" message="tns:IClientsCommunicationService_CreateSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/CreateSessionResponse" message="tns:IClientsCommunicationService_CreateSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenameSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/RenameSession" message="tns:IClientsCommunicationService_RenameSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/RenameSessionResponse" message="tns:IClientsCommunicationService_RenameSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSessionPassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword" message="tns:IClientsCommunicationService_ChangeSessionPassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ChangeSessionPasswordResponse" message="tns:IClientsCommunicationService_ChangeSessionPassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionsList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/GetSessionsList" message="tns:IClientsCommunicationService_GetSessionsList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/GetSessionsListResponse" message="tns:IClientsCommunicationService_GetSessionsList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/DeleteSession" message="tns:IClientsCommunicationService_DeleteSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DeleteSessionResponse" message="tns:IClientsCommunicationService_DeleteSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DisconnectFromSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession" message="tns:IClientsCommunicationService_DisconnectFromSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/DisconnectFromSessionResponse" message="tns:IClientsCommunicationService_DisconnectFromSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSession" message="tns:IClientsCommunicationService_JoinSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/JoinSessionResponse" message="tns:IClientsCommunicationService_JoinSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NewSessionCreated">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/NewSessionCreated" message="tns:IClientsCommunicationService_NewSessionCreated_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/NewSessionCreatedResponse" message="tns:IClientsCommunicationService_NewSessionCreated_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientJoinedSession">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ClientJoinedSession" message="tns:IClientsCommunicationService_ClientJoinedSession_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ClientJoinedSessionResponse" message="tns:IClientsCommunicationService_ClientJoinedSession_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientLeftSession">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ClientLeftSession" message="tns:IClientsCommunicationService_ClientLeftSession_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ClientLeftSessionResponse" message="tns:IClientsCommunicationService_ClientLeftSession_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionNameChanged">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionNameChanged" message="tns:IClientsCommunicationService_SessionNameChanged_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionNameChangedResponse" message="tns:IClientsCommunicationService_SessionNameChanged_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionPasswordChanged">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionPasswordChanged" message="tns:IClientsCommunicationService_SessionPasswordChanged_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionPasswordChangedResponse" message="tns:IClientsCommunicationService_SessionPasswordChanged_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionClientNickNameChanged">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionClientNickNameChanged" message="tns:IClientsCommunicationService_SessionClientNickNameChanged_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionClientNickNameChangedResponse" message="tns:IClientsCommunicationService_SessionClientNickNameChanged_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionClientIPAddressChanged">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionClientIPAddressChanged" message="tns:IClientsCommunicationService_SessionClientIPAddressChanged_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionClientIPAddressChangedResponse" message="tns:IClientsCommunicationService_SessionClientIPAddressChanged_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SessionDeleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionDeleted" message="tns:IClientsCommunicationService_SessionDeleted_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/SessionDeletedResponse" message="tns:IClientsCommunicationService_SessionDeleted_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ServerShutDownNoticeReceive">
+      <wsdl:output wsaw:Action="http://tempuri.org/IClientsCommunicationService/ServerShutDownNoticeReceive" message="tns:IClientsCommunicationService_ServerShutDownNoticeReceive_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IClientsCommunicationService/ServerShutDownNoticeReceiveResponse" message="tns:IClientsCommunicationService_ServerShutDownNoticeReceive_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IClientsCommunicationService" type="tns:IClientsCommunicationService">
+    <wsp:PolicyReference URI="#NetTcpBinding_IClientsCommunicationService_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="Connect">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/Connect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientIPAddress">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/UpdateClientIPAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeNickName">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ChangeNickName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Disconnect">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/Disconnect" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/CreateSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RenameSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/RenameSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSessionPassword">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ChangeSessionPassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSessionsList">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/GetSessionsList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/DeleteSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisconnectFromSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/DisconnectFromSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="JoinSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/JoinSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NewSessionCreated">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/NewSessionCreated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientJoinedSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ClientJoinedSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientLeftSession">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ClientLeftSession" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionNameChanged">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/SessionNameChanged" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionPasswordChanged">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/SessionPasswordChanged" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionClientNickNameChanged">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/SessionClientNickNameChanged" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionClientIPAddressChanged">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/SessionClientIPAddressChanged" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SessionDeleted">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/SessionDeleted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ServerShutDownNoticeReceive">
+      <soap12:operation soapAction="http://tempuri.org/IClientsCommunicationService/ServerShutDownNoticeReceive" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ClientsCommunicationService">
+    <wsdl:port name="NetTcpBinding_IClientsCommunicationService" binding="tns:NetTcpBinding_IClientsCommunicationService">
+      <soap12:address location="net.tcp://gorelovopc.ddns.net:8302/" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://gorelovopc.ddns.net:8302/</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

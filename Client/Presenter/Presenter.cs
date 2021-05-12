@@ -31,12 +31,16 @@ namespace Client.Presenter
             view.ListOfSessionsRequested += OnListOfSessionsRequested;
             view.CreateSession += OnCreateSession;
             view.JoinSession += OnJoinSession;
+            view.StartChat += OnStartChat;
+            view.MessageSent += OnMessageSent;
         }
 
         private void ModelEventsSubscribe()
         {
             model.SessionCreated += OnSessionCreated;
             model.ClientJoined += OnClientJoined;
+            model.GiveClientInfo += OnGiveClientInfo;
+            model.MessageReceived += OnMessageReceived;
         }
 
         private void OnSessionCreated(string sessionName)
@@ -77,6 +81,26 @@ namespace Client.Presenter
         public async Task<bool> OnJoinSession(string sessionName, string password)
         {
             return await model.JoinSession(sessionName, password);
+        }
+
+        public void OnGiveClientInfo(string name, string adress)
+        {
+            view.ShowClientInfo(name, adress);
+        }
+
+        public bool OnStartChat()
+        {
+            return model.StartChat();
+        }
+
+        public void OnMessageReceived(string message)
+        {
+            view.ShowMessage(message);
+        }
+
+        public void OnMessageSent(string message)
+        {
+            model.SendMessage(message);
         }
     }
 }

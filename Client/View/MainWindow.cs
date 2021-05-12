@@ -8,7 +8,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Client.ClientsCommunicationService;
+using Client.ClientsCommunicationService1;
 using Client.Model.ServerConnectionManager;
 using System.Net;
 
@@ -16,12 +16,16 @@ namespace Client.View
 {
     public partial class MainWindow : Form
     {
+        string myName;
+
         public event Func<bool> FormLoad;
         public event Func<string, Task<bool>> UsernameEntered;
         public event Func<IPEndPoint> AdressRequested;
         public event Func<Task<string[]>> ListOfSessionsRequested;
         public event Func<string, Task<bool>> CreateSession;
         public event Func<string, string, Task<bool>> JoinSession;
+        public event Func<bool> StartChat;
+        public event Action<string> MessageSent;
 
         public MainWindow()
         {
@@ -59,6 +63,7 @@ namespace Client.View
             } while (usernameAccepted == false);
             IPEndPoint tmp = AdressRequested();
             textBox1.Text += "Соединение с сервером установлено. Вы зашли под именем: " + username + " Ваш адрес: " + AdressRequested().ToString() + Environment.NewLine;
+            myName = username;
             GetListOfSessions();
         }
 
@@ -80,10 +85,8 @@ namespace Client.View
                 listBox1.Items.Clear();
                 listBox1.Enabled = false;
                 button1.Enabled = false;
-                button2.Enabled = false;
-                textBox2.Enabled = true;
-                button3.Enabled = true;
-                textBox1.Text += "Сессия создана. Пароль: " + password + "Ожидание подключения." + Environment.NewLine; 
+                button2.Enabled = false;                
+                textBox1.Text += "Сессия создана. Пароль: " + password + " Ожидание подключения." + Environment.NewLine; 
             }
             else
             {
@@ -106,10 +109,14 @@ namespace Client.View
                 listBox1.Items.Clear();
                 listBox1.Enabled = false;
                 button1.Enabled = false;
-                button2.Enabled = false;
-                textBox2.Enabled = true;
-                button3.Enabled = true;
+                button2.Enabled = false;                
                 textBox1.Text += "Вы подключились к сессии." + Environment.NewLine;
+                if (StartChat() == true)
+                {
+                    textBox1.Text += "Теперь вы можете отправлять сообщения." + Environment.NewLine;
+                    textBox2.Enabled = true;
+                    button3.Enabled = true;
+                }
             }
             else
             {
@@ -120,6 +127,30 @@ namespace Client.View
         public void ClientJoined(string name, string adress)
         {
             textBox1.Text += name + " вошел в чат. Его адресс: " + adress + Environment.NewLine;
+            if (StartChat() == true)
+            {
+                textBox1.Text += "Теперь вы можете отправлять сообщения." + Environment.NewLine;
+                textBox2.Enabled = true;
+                button3.Enabled = true;
+            }
+        }
+
+        public void ShowClientInfo(string name, string adress)
+        {
+            textBox1.Text += "Создатель сессии: " + name + " Его адрес: " + adress + Environment.NewLine;
+        }
+
+        public void ShowMessage(string message)
+        {
+            this.Invoke(new MethodInvoker(() => { textBox1.Text += message + Environment.NewLine; }));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (textBox2.Text.Trim() == "")
+                return;
+            string message = myName + ": " + textBox2.Text;
+            MessageSent(message);
         }
 
         /*

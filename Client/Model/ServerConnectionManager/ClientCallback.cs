@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Client.ClientsCommunicationService;
+using Client.ClientsCommunicationService1;
 
 namespace Client.Model.ServerConnectionManager
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Client.ClientsCommunicationService;
+using Client.ClientsCommunicationService1;
 using Client.Model.ServerConnectionManager;
 using System.ServiceModel;
 using System.Net;
@@ -16,6 +16,8 @@ namespace Client.Model.ServerConnectionManager
         private ServerClient serverClient;
         private List<Session> sessions;
         private Session curSession;
+
+        public event Action<string, string> GiveClientInfo;
 
         public ServerConnectionManager(ClientCallback clientCallback)
         {
@@ -79,6 +81,7 @@ namespace Client.Model.ServerConnectionManager
             {
                 case null:
                     curSession = selectedSession;
+                    GiveClientInfo(curSession.Creator.NickName, curSession.Creator.IPAddress.ToString());
                     return true;
                 default:                    
                     return false;
