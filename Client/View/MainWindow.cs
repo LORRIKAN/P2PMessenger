@@ -161,6 +161,7 @@ namespace Client.View
             if(e.KeyChar == (char)13 && button3.Enabled == true)
             {
                 SendMessage();
+                e.Handled = true;
             }
         }
 
