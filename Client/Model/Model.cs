@@ -47,7 +47,7 @@ namespace Client.Model
         public void OnMessageReceived(string message)
         {
             MessageReceived(message);
-            p2p.Cycle();
+            //p2p.Cycle();
         }
 
         private void OnSessionCreated(Session session)

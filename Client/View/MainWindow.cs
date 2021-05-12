@@ -151,7 +151,7 @@ namespace Client.View
                 return;
             string message = myName + ": " + textBox2.Text;
             textBox2.Text = "";
-            textBox1.Text += message;
+            textBox1.Text += message + Environment.NewLine;
             MessageSent(message);
         }
 

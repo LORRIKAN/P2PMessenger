@@ -47,7 +47,7 @@ namespace Client.Model.p2pConnectionManager
             byte[] firstCheck = new byte[1] { 100 };
             byte[] secondCheck = new byte[1] { 200 };
 
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 2000; i++)
             {
                 if(status == Status.NoConnection)
                 {
@@ -60,6 +60,7 @@ namespace Client.Model.p2pConnectionManager
                         {
                             if (b == 200)
                             {
+                                client.Send(secondCheck, 1, connectionAdress);
                                 status = Status.SecondCheck;
                                 return true;
                             }
