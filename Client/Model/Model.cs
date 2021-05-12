@@ -111,13 +111,18 @@ namespace Client.Model
         {
             bool result = p2p.CheckConnection();
             if (result == true)
-                p2p.Cycle();
+                p2p.StartChat();
             return result;
         }
 
         public void SendMessage(string message)
         {
             p2p.SendMessage(message);
+        }
+
+        public async Task Disconnect()
+        {
+            await server.Disconnect();
         }
     }
 }

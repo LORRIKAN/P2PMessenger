@@ -114,5 +114,10 @@ namespace Client.Model.ServerConnectionManager
                     sessions[i] = newSession;
             }
         }
+
+        public async Task Disconnect()
+        {
+            await server.DisconnectAsync(serverClient);
+        }
     }
 }

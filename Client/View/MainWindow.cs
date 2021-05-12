@@ -26,6 +26,7 @@ namespace Client.View
         public event Func<string, string, Task<bool>> JoinSession;
         public event Func<bool> StartChat;
         public event Action<string> MessageSent;
+        public event Func<Task> ChatClosed;
 
         public MainWindow()
         {
@@ -153,6 +154,11 @@ namespace Client.View
             textBox2.Text = "";
             textBox1.Text += message + Environment.NewLine;
             MessageSent(message);
+        }
+
+        private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ChatClosed();
         }
 
         /*

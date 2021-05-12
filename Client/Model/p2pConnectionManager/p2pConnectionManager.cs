@@ -15,27 +15,23 @@ namespace Client.Model.p2pConnectionManager
         private UdpClient client;
         private Status status = Status.NoConnection;
 
+        private Socket _socket;
+        private const int bufSize = 8 * 1024;
+        private State state = new State();        
+        private AsyncCallback recv = null;
+        private EndPoint epFrom;
+
+        public class State
+        {
+            public byte[] buffer = new byte[bufSize];
+        }
+
         public event Action<string> MessageReceived;
 
         public p2pConnectionManager(UdpClient client)
         {
             this.client = client;
-        }
-
-        public Task Cycle()
-        {
-            return Task.Run(() =>
-            {
-                while (true)
-                {
-                    if (client.Available != 0)
-                    {
-                        string message = Encoding.UTF8.GetString(client.Receive(ref connectionAdress));
-                        MessageReceived(message);
-                    }
-                }
-            });
-        }
+        }        
 
         public void SetConnectionAdress(IPEndPoint address)
         {
@@ -85,15 +81,37 @@ namespace Client.Model.p2pConnectionManager
                         }                        
                     }
                 }
-            }
-
+            }           
             return false;
+        }
+
+        public void StartChat()
+        {
+            _socket = client.Client;
+            _socket.Connect(connectionAdress);
+            epFrom = connectionAdress;
+            Receive();
         }
 
         public void SendMessage(string message)
         {
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            client.Send(messageBytes, messageBytes.Length, connectionAdress);
+            byte[] data = Encoding.UTF8.GetBytes(message);
+            _socket.BeginSend(data, 0, data.Length, SocketFlags.None, (ar) =>
+            {
+                State so = (State)ar.AsyncState;
+                int bytes = _socket.EndSend(ar);                
+            }, state);
+        }
+
+        public void Receive()
+        {
+            _socket.BeginReceiveFrom(state.buffer, 0, bufSize, SocketFlags.None, ref epFrom, recv = (ar) =>
+            {
+                State so = (State)ar.AsyncState;
+                int bytes = _socket.EndReceiveFrom(ar, ref epFrom);
+                _socket.BeginReceiveFrom(so.buffer, 0, bufSize, SocketFlags.None, ref epFrom, recv, so);
+                MessageReceived(Encoding.ASCII.GetString(so.buffer, 0, bytes));
+            }, state);
         }
     }
 

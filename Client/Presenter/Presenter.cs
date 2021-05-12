@@ -33,6 +33,7 @@ namespace Client.Presenter
             view.JoinSession += OnJoinSession;
             view.StartChat += OnStartChat;
             view.MessageSent += OnMessageSent;
+            view.ChatClosed += OnChatClosed;
         }
 
         private void ModelEventsSubscribe()
@@ -101,6 +102,11 @@ namespace Client.Presenter
         public void OnMessageSent(string message)
         {
             model.SendMessage(message);
+        }
+
+        public async Task OnChatClosed()
+        {
+            await model.Disconnect();
         }
     }
 }
