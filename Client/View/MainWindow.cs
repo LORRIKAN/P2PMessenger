@@ -169,7 +169,10 @@ namespace Client.View
             if (textBox2.Text.Trim() == "")
                 return;
             string message = myName + ": " + textBox2.Text;
-            textBox2.Text = "";
+            message = message.Replace("\n", String.Empty);
+            message = message.Replace("\r", String.Empty);
+            message = message.Replace("\t", String.Empty);
+            textBox2.Text = string.Empty;
             textBox1.Text += message + Environment.NewLine;
             MessageSent(message);
         }
