@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
+using System.Threading.Tasks;
 
 namespace WCF_Service
 {
@@ -26,12 +27,17 @@ namespace WCF_Service
 
             serverClient.NickName = newNickName;
 
-            foreach (Session session in serverClient.Sessions)
+            foreach (Session session in serverClient.Sessions.ToArray())
             {
-                foreach (ServerClient sessionClient in session.Clients)
+                foreach (ServerClient sessionClient in session.Clients.ToArray())
                 {
                     IClientCallback callbackChannel = ServerClients[sessionClient].GetCallbackChannel<IClientCallback>();
-                    callbackChannel.SessionClientNickNameChanged(session, serverClient, oldNickName, newNickName);
+                    Task.Run(() => {
+                    try
+                    {
+                        callbackChannel.SessionClientNickNameChanged(session, serverClient, oldNickName, newNickName);
+                    }
+                    catch { } });
                 }
             }
 
@@ -55,10 +61,10 @@ namespace WCF_Service
             else
                 session.IsPasswordRequired = true;
 
-            foreach (ServerClient sessionClient in session.Clients)
+            foreach (ServerClient sessionClient in session.Clients.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[sessionClient].GetCallbackChannel<IClientCallback>();
-                callbackChannel.SessionPasswordChanged(session);
+                Task.Run(() => { try { callbackChannel.SessionPasswordChanged(session); } catch { } });
             }
 
             result.Result = session;
@@ -130,10 +136,10 @@ namespace WCF_Service
 
             ServerSessions.Add(newSession);
 
-            foreach (ServerClient client in ServerClients.Keys)
+            foreach (ServerClient client in ServerClients.Keys.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
-                callbackChannel.NewSessionCreated(newSession);
+                Task.Run(() => { try { callbackChannel.NewSessionCreated(newSession); } catch { } });
             }
 
             result.Result = new Tuple<Session, ServerClient>(newSession, serverClient);
@@ -153,11 +159,11 @@ namespace WCF_Service
 
             serverClient = FindClient(serverClient);
 
-            foreach (ServerClient client in session.Clients)
+            foreach (ServerClient client in session.Clients.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
                 client.Sessions.Remove(session);
-                callbackChannel.SessionDeleted(serverClient, session, deletionCause);
+                Task.Run(() => { try { callbackChannel.SessionDeleted(serverClient, session, deletionCause); } catch { } });
             }
 
             ServerSessions.Remove(session);
@@ -177,7 +183,7 @@ namespace WCF_Service
 
             serverClient = FindClient(serverClient);
 
-            foreach (Session session in serverClient.Sessions)
+            foreach (Session session in ServerSessions.Where(s => s.Clients.Contains(serverClient)))
                 DisconnectFromSession(session, serverClient);
 
             ServerClients.Remove(serverClient);
@@ -201,10 +207,10 @@ namespace WCF_Service
 
             session.Clients.Remove(serverClient);
             
-            foreach (ServerClient client in session.Clients)
+            foreach (ServerClient client in session.Clients.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
-                callbackChannel.ClientLeftSession(session, serverClient);
+                Task.Run(() => { try { callbackChannel.ClientLeftSession(session, serverClient); } catch { } });
             }
 
             result.Result = new Tuple<Session, ServerClient>(session, serverClient);
@@ -236,10 +242,11 @@ namespace WCF_Service
                 return result;
             }
 
-            foreach (ServerClient client in session.Clients)
+
+            foreach (ServerClient client in session.Clients.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
-                callbackChannel.ClientJoinedSession(session, serverClient);
+                Task.Run(() => { try { callbackChannel.ClientJoinedSession(session, serverClient); } catch { } });
             }
 
             session.Clients.Add(serverClient);
@@ -265,10 +272,10 @@ namespace WCF_Service
 
             session.SessionName = newName;
 
-            foreach (ServerClient client in session.Clients)
+            foreach (ServerClient client in session.Clients.ToArray())
             {
                 IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
-                callbackChannel.SessionNameChanged(session, oldName, newName);
+                Task.Run(() => { try { callbackChannel.SessionNameChanged(session, oldName, newName); } catch { } });
             }
 
             result.Result = session;
@@ -294,12 +301,19 @@ namespace WCF_Service
 
             if (oldIPAddress != newIPAddress)
             {
-                foreach (Session session in serverClient.Sessions)
+                foreach (Session session in serverClient.Sessions.ToArray())
                 {
-                    foreach (ServerClient client in session.Clients)
+                    foreach (ServerClient client in session.Clients.ToArray())
                     {
                         IClientCallback callbackChannel = ServerClients[client].GetCallbackChannel<IClientCallback>();
-                        callbackChannel.SessionClientIPAddressChanged(session, serverClient, oldIPAddress, newIPAddress);
+                        Task.Run(() =>
+                        {
+                            try
+                            {
+                                callbackChannel.SessionClientIPAddressChanged(session, serverClient, oldIPAddress, newIPAddress);
+                            }
+                            catch { }
+                        });
                     }
                 }
             }
